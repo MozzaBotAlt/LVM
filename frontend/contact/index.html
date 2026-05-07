@@ -9,50 +9,158 @@
     <title>Contact Us!</title>
     <link rel="icon" href="/multimedia/image/images.webp" type="image/x-icon">
     <style>
-        .card {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-width: 600px;
-            margin: 20px auto;
+      .contact-card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 28px;
+        padding: 32px;
+        max-width: 840px;
+        margin: 40px auto;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(18px);
+      }
+
+      .card-header {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+
+      .card-header h1 {
+        font-size: 2.2rem;
+        margin-bottom: 12px;
+        color: #ffffff;
+      }
+
+      .card-header .card-desc {
+        font-size: 1rem;
+        color: #dceefc;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .contact-item {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 24px;
+        display: flex;
+        gap: 18px;
+        align-items: flex-start;
+      }
+
+      .contact-icon {
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+        background: rgba(0, 255, 247, 0.12);
+        color: #00fff7;
+        font-size: 1.3rem;
+      }
+
+      .contact-item h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+        color: #ffffff;
+      }
+
+      .contact-item p,
+      .contact-item a {
+        color: #dceefc;
+        font-size: 0.96rem;
+        line-height: 1.7;
+        text-decoration: none;
+      }
+
+      .contact-item a:hover {
+        color: #ffffff;
+        text-decoration: underline;
+      }
+
+      .contact-actions {
+        display: flex;
+        justify-content: center;
+        margin-top: 32px;
+      }
+
+      .contact-actions .btn {
+        max-width: 220px;
+      }
+
+      .site-footer {
+        margin-top: 36px;
+      }
+
+      @media (max-width: 780px) {
+        .contact-grid {
+          grid-template-columns: 1fr;
         }
-        .card h2 {
-            color: #333;
+
+        .contact-card {
+          margin: 24px auto;
+          padding: 24px;
         }
-        .card p {
-            color: #555;
-        }
-        .p {
-            color: #007BFF;
-            text-decoration: none;
-        }
-        .p:hover {
-            text-decoration: underline;
-        }
-        </style>
+      }
+    </style>
 </head>
 <body>
     <div class="container">
-      <div class="box">
-            <i style="margin: 10px 10px 10px;" class="fa-solid fa-house"></i>
-            <button style="margin: 10px 10px 10px;" class="btn" onclick="window.location.href='../index.html'">Home</button>
+      <section class="card contact-card">
+        <div class="card-header">
+          <h1>Contact Labsim Von MozzaBot</h1>
+          <p class="card-desc">If you have questions, feedback, or need support, we’d love to hear from you. Use any of the channels below and we’ll respond as soon as possible.</p>
         </div>
-      <div class="card">
-          <h2>Contact Us!</h2>
-          <p>If you have any questions, feedback, or need assistance, feel free to reach out to us!</p>
-          <ul style="list-style: none; padding: 0;">
-              <li style="margin-top: 25px;"><img src="/multimedia/image/mail.png" alt=""><a class="p" href="mailto:231046@langkawi.mrsm.edu.my">Developer's email</a></li><br>
-              <li style="margin-top: 25px;"><img src="/multimedia/image/GitHub.png" alt=""><a class="p" href="https://github.com/MozzaBotAlt/">Dev's Github Page for tech geeks!</a></li><br>
-              <li style="margin-top: 25px;"><img src="/multimedia/image/address.png" alt=""><a class="p" href="https://www.google.com/maps/place/MARA+Junior+Science+College+Langkawi/@6.3399938,99.8656999,17z/data=!3m1!4b1!4m6!3m5!1s0x304c7fbcb2304bfb:0x50d904338866b616!8m2!3d6.3399938!4d99.8682748!16s%2Fg%2F120_gct1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D">MRSM Langkawi, Jalan Air Hangat 4KM, 07000 Langkawi, Kedah, Malaysia</a></li><br>
-              <li style="margin-top: 25px;"><img src="/multimedia/image/instagram.avif" alt=""><a class="p" href="https://www.instagram.com/mozzabot_official/"></a>Instagram</li><br>
-          </ul>
-          <p>We look forward to your voice!</p>
+
+        <div class="contact-grid">
+          <div class="contact-item">
+            <span class="contact-icon"><i class="fa-solid fa-envelope"></i></span>
+            <div>
+              <h3>Email</h3>
+              <p><a href="mailto:231046@langkawi.mrsm.edu.my">231046@langkawi.mrsm.edu.my</a></p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <span class="contact-icon"><i class="fa-brands fa-github"></i></span>
+            <div>
+              <h3>GitHub</h3>
+              <p><a href="https://github.com/MozzaBotAlt/" target="_blank" rel="noopener">github.com/MozzaBotAlt</a></p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <span class="contact-icon"><i class="fa-solid fa-location-dot"></i></span>
+            <div>
+              <h3>Location</h3>
+              <p><a href="https://www.google.com/maps/place/MARA+Junior+Science+College+Langkawi/@6.3399938,99.8656999,17z" target="_blank" rel="noopener">MRSM Langkawi, Jalan Air Hangat 4KM, 07000 Langkawi, Kedah</a></p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <span class="contact-icon"><i class="fa-brands fa-instagram"></i></span>
+            <div>
+              <h3>Instagram</h3>
+              <p><a href="https://www.instagram.com/mozzabot_official/" target="_blank" rel="noopener">@mozzabot_official</a></p>
+            </div>
+          </div>
         </div>
+
+        <div class="contact-actions">
+          <button class="btn" onclick="window.location.href='../index.html'">Back to Home</button>
+        </div>
+      </section>
     </div>
+
     <script src="script.js"></script>
 
-    <hr>
     <noscript><meta http-equiv="refresh" content="0;url=/error.html"></noscript>
     <footer class="site-footer">
       <div class="footer-inner">
