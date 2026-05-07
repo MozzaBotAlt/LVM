@@ -407,18 +407,32 @@ function blendReactionColor(reactantSymbols) {
 
 // Update Chamber Color
 function updateChamberColor() {
-  elements.chamberContents.style.backgroundColor = state.chamberColor;
+  const height = Math.min(state.chamberContents.length * 20, 85);
+  elements.chamberContents.style.height = height + '%';
+
+  if (Array.isArray(state.chamberColor)) {
+    // Sequential color change not directly supported in CSS, using first color
+    elements.chamberContents.style.backgroundColor = state.chamberColor[0];
+  } else {
+    elements.chamberContents.style.backgroundColor = state.chamberColor;
+  }
 }
 
 // Update Chamber Visuals
 function updateChamberVisuals() {
   elements.chamberFlame.style.display = 'none';
-  elements.chamberBubbles.style.display = 'none';
+  elements.chamberBubbles.innerHTML = '';
 
   if (state.isHeated) {
-    elements.chamberContents.style.boxShadow = 'inset 0 0 20px rgba(255, 100, 0, 0.5)';
-  } else {
-    elements.chamberContents.style.boxShadow = 'none';
+    for (let i = 0; i < 8; i++) {
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      bubble.style.width = (Math.random() * 4 + 2) + 'px';
+      bubble.style.height = bubble.style.width;
+      bubble.style.left = Math.random() * 90 + '%';
+      bubble.style.animationDelay = Math.random() + 's';
+      elements.chamberBubbles.appendChild(bubble);
+    }
   }
 }
 
