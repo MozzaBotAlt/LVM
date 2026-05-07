@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Perform chemical reactions in a safe, virtual environment with the ChemLab Simulator. Follow step-by-step procedures and record your observations in the lab notebook.">
+  <title>LVM C13: Chemical Reactions</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Welcome Modal -->
+  <div id="welcomeModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="beaker-icon">🧪</div>
+        <h1>Welcome to LVM Chemistry Simulator</h1>
+        <p>Perform chemical reactions in a safe, virtual environment.</p>
+      </div>
+      <div class="safety-alert">
+        <span class="warning-icon">⚠️</span>
+        <div>
+          <p class="alert-title">Safety First</p>
+          <p>Always wear safety goggles. Be careful with heat sources and reactive chemicals.</p>
+        </div>
+      </div>
+      <button id="enterLabBtn" class="btn btn-primary">Put on Goggles & Enter Lab</button>
+    </div>
+  </div>
+
+  <!-- Failure Modal -->
+  <div id="failureModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="failure-icon">🔥</div>
+        <h2>Experiment Failed</h2>
+        <p id="failureMessage"></p>
+      </div>
+      <button id="restartBtn" class="btn btn-danger">Clean Up & Restart</button>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="container hidden" id="mainContainer">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="header-icon">🧪</div>
+        <div>
+          <h1 class="app-title">Labsim Von MozzaBot</h1>
+          <p class="app-subtitle">Chemical Reactions</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <button id="gogglesBtn" class="goggles-btn" title="Toggle safety goggles">
+          <span class="goggles-status">Goggles OFF</span>
+        </button>
+        <a href="../index.html" class="btn btn-secondary">← Back to Chapter 13</a>
+      </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="section">
+          <h2 class="section-title">Experiments</h2>
+          <div class="experiment-list" id="experimentList"></div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-title">Search Elements</h2>
+          <div class="search-group">
+            <input id="elementSearchInput" type="search" placeholder="Search by name, symbol, or state" aria-label="Search elements" />
+            <button id="elementSearchBtn" class="btn btn-secondary btn-small">Search</button>
+          </div>
+          <div id="elementSearchResults" class="search-results">
+            <p class="search-hint">Type any element name or symbol and press Search.</p>
+          </div>
+        </div>
+
+        <!-- Lab Notebook moved to sidebar -->
+        <div class="notebook-section">
+          <div class="notebook-header">
+            <h3>Lab Notebook</h3>
+            <span class="time-display" id="timeDisplay"></span>
+          </div>
+          <div class="notebook-content" id="notebookContent">
+            <div class="notebook-placeholder">
+              <p>Actions will be recorded here.</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Workspace -->
+      <div class="workspace">
+        <!-- Placeholder -->
+        <div id="placeholderContent" class="placeholder">
+          <div class="placeholder-icon">🧪</div>
+          <p class="placeholder-title">Select an experiment to begin</p>
+          <p class="placeholder-subtitle">Choose from the list on the left</p>
+        </div>
+
+        <!-- Actual Workspace (hidden until selection) -->
+        <div id="workspaceContent" class="workspace-content hidden">
+          <!-- Left Panel: Reactants -->
+          <div class="reagents-section">
+            <div class="reagent-panel">
+              <h3 class="reagent-title">Reactants</h3>
+              <div class="reagent-grid" id="reactantsPanel"></div>
+            </div>
+          </div>
+
+          <!-- Center: Reaction Chamber -->
+          <div class="bench-section">
+            <div class="controls-top">
+              <button id="shakeBtn" class="btn btn-secondary btn-small">↻ Mix</button>
+              <button id="waterBathBtn" class="btn btn-secondary btn-small">🌊 Water Bath</button>
+              <button id="burnerBtn" class="btn btn-secondary btn-small btn-danger-small">🔥 Burner</button>
+            </div>
+
+            <div class="tube-container">
+              <div class="reaction-chamber" id="reactionChamber">
+                <div class="chamber-body">
+                  <div class="chamber-contents" id="chamberContents"></div>
+                  <div class="chamber-bubbles" id="chamberBubbles"></div>
+                  <div class="chamber-flame" id="chamberFlame"></div>
+                </div>
+                <div class="chamber-lid"></div>
+              </div>
+              <div class="chamber-stand">
+                <div class="stand-base"></div>
+              </div>
+            </div>
+
+            <div class="controls-bottom">
+              <button id="emptyBtn" class="btn btn-outline btn-small">🗑️ Empty Chamber</button>
+            </div>
+          </div>
+
+          <!-- Right: Procedure -->
+          <div class="section" id="procedureSection" style="display: none;">
+            <h3 class="section-title">Procedure</h3>
+            <div class="procedure-box">
+              <ol class="procedure-steps" id="procedureSteps"></ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="dataset.js"></script>
+  <script src="script.js"></script>
+  <noscript><meta http-equiv="refresh" content="0;url=/error.html"/></noscript>
+</body>
+</html></content>
+<parameter name="filePath">/workspaces/LVM/chem/c13/index.html

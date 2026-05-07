@@ -92,20 +92,22 @@ function renderExperiments() {
       <span class="name">${exp.name}</span>
       <span class="desc">${exp.description}</span>
     `;
-    btn.addEventListener('click', () => selectTest(exp.id));
+    btn.addEventListener('click', () => selectTest(exp.id, btn));
     elements.experimentList.appendChild(btn);
   });
 }
 
 // Select Test
-function selectTest(testId) {
+function selectTest(testId, button) {
   state.selectedTest = testId;
 
   // Update UI
   document.querySelectorAll('.experiment-btn').forEach(btn => {
     btn.classList.remove('active');
   });
-  event.target.closest('.experiment-btn').classList.add('active');
+  if (button) {
+    button.classList.add('active');
+  }
 
   // Show procedure
   const experiment = EXPERIMENTS[testId];
