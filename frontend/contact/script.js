@@ -45,7 +45,26 @@ document.addEventListener("DOMContentLoaded", function () {
             icon.style.color = '';
         });
     });
-    // ...existing code...
+
+    const scrollTicker = document.querySelector('.scroll-ticker');
+    if (scrollTicker) {
+        let scrollSpeed = 0.36;
+        function animateScroll() {
+            scrollTicker.scrollLeft += scrollSpeed;
+            if (scrollTicker.scrollLeft >= scrollTicker.scrollWidth - scrollTicker.clientWidth) {
+                scrollTicker.scrollLeft = 0;
+            }
+            requestAnimationFrame(animateScroll);
+        }
+        animateScroll();
+
+        scrollTicker.addEventListener('mouseenter', () => {
+            scrollSpeed = 0;
+        });
+        scrollTicker.addEventListener('mouseleave', () => {
+            scrollSpeed = 0.36;
+        });
+    }
     // Ripple effect CSS (inject once)
     if (!document.getElementById('ripple-style')) {
         const rippleStyle = document.createElement('style');

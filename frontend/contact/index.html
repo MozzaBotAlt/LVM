@@ -6,77 +6,87 @@
     <meta name="Keywords" content="Labsim von MozzaBot, MozzaBot, Long Infinity, Lab Website, Education, Science, Innovation, Simulator">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
-    <title>Contact Us!</title>
+    <title>Contact Page -Labsim Von MozzaBot</title>
     <link rel="icon" href="/multimedia/image/images.webp" type="image/x-icon">
     <style>
       .contact-card {
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 28px;
-        padding: 32px;
-        max-width: 840px;
-        margin: 40px auto;
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
-        backdrop-filter: blur(18px);
+        background: linear-gradient(180deg, rgba(10, 18, 46, 0.96), rgba(6, 16, 34, 0.98));
+        border: 1px solid rgba(0, 255, 247, 0.15);
+        border-radius: 32px;
+        padding: 40px;
+        max-width: 980px;
+        margin: 40px auto 24px;
+        box-shadow: 0 26px 70px rgba(0, 0, 0, 0.24);
+        backdrop-filter: blur(20px);
       }
 
       .card-header {
+        display: grid;
+        gap: 12px;
         text-align: center;
         margin-bottom: 32px;
       }
 
       .card-header h1 {
-        font-size: 2.2rem;
-        margin-bottom: 12px;
-        color: #ffffff;
+        font-size: clamp(2rem, 2.6vw, 3rem);
+        margin-bottom: 8px;
+        color: #9dfcff;
+        letter-spacing: 0.6px;
       }
 
       .card-header .card-desc {
-        font-size: 1rem;
-        color: #dceefc;
-        max-width: 700px;
+        font-size: 1.03rem;
+        color: #d8f4ff;
+        max-width: 760px;
         margin: 0 auto;
-        line-height: 1.7;
+        line-height: 1.8;
       }
 
       .contact-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 20px;
+        gap: 22px;
+        margin-bottom: 30px;
       }
 
       .contact-item {
         background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
         padding: 24px;
         display: flex;
         gap: 18px;
         align-items: flex-start;
+        transition: transform 0.22s ease, box-shadow 0.22s ease;
+      }
+
+      .contact-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 36px rgba(0, 255, 247, 0.11);
       }
 
       .contact-icon {
         display: grid;
         place-items: center;
-        width: 48px;
-        height: 48px;
-        border-radius: 16px;
+        width: 52px;
+        height: 52px;
+        border-radius: 18px;
         background: rgba(0, 255, 247, 0.12);
         color: #00fff7;
-        font-size: 1.3rem;
+        font-size: 1.35rem;
       }
 
       .contact-item h3 {
-        font-size: 1rem;
+        font-size: 1.02rem;
         margin-bottom: 8px;
-        color: #ffffff;
+        color: #f5ffff;
       }
 
       .contact-item p,
       .contact-item a {
-        color: #dceefc;
-        font-size: 0.96rem;
-        line-height: 1.7;
+        color: #d4eef4;
+        font-size: 0.98rem;
+        line-height: 1.75;
         text-decoration: none;
       }
 
@@ -85,10 +95,82 @@
         text-decoration: underline;
       }
 
+      .scroll-panel {
+        margin-top: 24px;
+        padding: 24px;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(0, 255, 247, 0.12);
+      }
+
+      .scroll-panel h2 {
+        margin-bottom: 12px;
+        color: #c4f5ff;
+        font-size: 1.15rem;
+      }
+
+      .scroll-panel p {
+        margin-bottom: 18px;
+        color: #d9f9ff;
+        font-size: 0.98rem;
+      }
+
+      .scroll-ticker {
+        display: flex;
+        gap: 18px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 8px;
+      }
+
+      .scroll-ticker::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      .scroll-ticker::-webkit-scrollbar-thumb {
+        background: rgba(0, 255, 247, 0.3);
+        border-radius: 999px;
+      }
+
+      .scroll-card {
+        min-width: 280px;
+        flex: 0 0 auto;
+        background: rgba(4, 17, 42, 0.95);
+        border: 1px solid rgba(0, 255, 247, 0.12);
+        border-radius: 24px;
+        padding: 22px;
+        scroll-snap-align: center;
+        box-shadow: 0 18px 34px rgba(0, 0, 0, 0.18);
+      }
+
+      .scroll-card h3 {
+        margin-bottom: 10px;
+        color: #77ecff;
+      }
+
+      .scroll-card p {
+        color: #cfefff;
+        line-height: 1.75;
+        font-size: 0.96rem;
+      }
+
+      .scroll-card .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(0, 255, 247, 0.12);
+        color: #bffcff;
+        font-size: 0.82rem;
+        margin-bottom: 12px;
+      }
+
       .contact-actions {
         display: flex;
         justify-content: center;
-        margin-top: 32px;
+        gap: 18px;
+        margin-top: 30px;
       }
 
       .contact-actions .btn {
@@ -96,7 +178,7 @@
       }
 
       .site-footer {
-        margin-top: 36px;
+        margin-top: 42px;
       }
 
       @media (max-width: 780px) {
@@ -105,20 +187,32 @@
         }
 
         .contact-card {
-          margin: 24px auto;
-          padding: 24px;
+          margin: 20px auto;
+          padding: 28px;
+        }
+
+        .scroll-ticker {
+          gap: 14px;
+        }
+
+        .scroll-card {
+          min-width: 240px;
         }
       }
     </style>
 </head>
 <body>
+  <header class="site-header">
+      <div class="header-inner">
+        <h1>Connect with Us</h1>
+        <p class="tagline">
+          Contact us for any inquiries or support.
+        </p>
+      </div>
+    </header>
+
     <div class="container">
       <section class="card contact-card">
-        <div class="card-header">
-          <h1>Contact Labsim Von MozzaBot</h1>
-          <p class="card-desc">If you have questions, feedback, or need support, we’d love to hear from you. Use any of the channels below and we’ll respond as soon as possible.</p>
-        </div>
-
         <div class="contact-grid">
           <div class="contact-item">
             <span class="contact-icon"><i class="fa-solid fa-envelope"></i></span>
@@ -156,7 +250,52 @@
         <div class="contact-actions">
           <button class="btn" onclick="window.location.href='../index.html'">Back to Home</button>
         </div>
+
+        <div class="scroll-panel">
+          <h2>Quick Highlights</h2>
+          <p>Swipe or watch the ticker for the latest contact and support updates. Replace the text below with your own content when ready.</p>
+          <div class="scroll-ticker">
+            <article class="scroll-card">
+              <span class="badge">Support</span>
+              <h3>Fast response</h3>
+              <p>Reach out for help and get a reply with step-by-step answers to your questions.</p>
+            </article>
+            <article class="scroll-card">
+              <span class="badge">Community</span>
+              <h3>Follow updates</h3>
+              <p>Stay connected on GitHub and Instagram for news, releases, and behind-the-scenes content.</p>
+            </article>
+            <article class="scroll-card">
+              <span class="badge">Explore</span>
+              <h3>Find us</h3>
+              <p>Visit MRSM Langkawi or contact us via email for collaborations and project support.</p>
+            </article>
+          </div>
+        </div>
       </section>
+    </div>
+
+    <div class="card">
+      <article class="scroll-card">
+        <span class="badge">Survey</span>
+        <h3>Take our survey</h3>
+        <button onclick="window.location.href='survey.html'">Take Survey</button>
+        <p>Complete out feedback surveys to help us improve Labsim Von MozzaBot. Your feedback is valuable!</p>
+      </article>
+
+      <article class="scroll-card">
+        <span class="badge">Survey</span>
+        <h3>Take our Pre-Test</h3>
+        <button onclick="window.location.href='pretest.html'">Take Pre-Test</button>
+        <p>Complete the pre-test surveys to help us improve Labsim Von MozzaBot. Your feedback is valuable!</p>
+      </article>
+
+      <article class="scroll-card">
+        <span class="badge">Survey</span>
+        <h3>Take our Post-Test</h3>
+        <button onclick="window.location.href='posttest.html'">Take Post-Test</button>
+        <p>Complete the post-test surveys to help us improve Labsim Von MozzaBot. Your feedback is valuable!</p>
+      </article>
     </div>
 
     <script src="script.js"></script>
