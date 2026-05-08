@@ -9,7 +9,7 @@ body {
 body {
   margin: 0;
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
-  background: radial-gradient(circle at top left, #0f4fd4 0%, #08203f 45%, #03070f 100%);
+  background: #102A43;
   color: #e8f5ff;
   -webkit-font-smoothing: antialiased;
 }
