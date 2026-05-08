@@ -318,11 +318,6 @@ li img {
   margin-right: 12px;
 }
 
-  vertical-align: middle;
-  display: inline-block;
-  border-radius: 4px;
-}
-
 /* Ensure proper alignment for list items with images */
 li {
   display: flex;
