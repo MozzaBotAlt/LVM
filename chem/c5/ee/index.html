@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore chemical reactions with the ChemSim Reaction Simulator. Visualize molecular behavior, energy diagrams, and reaction dynamics in a safe, virtual environment.">
+  <title>LVM C5: ChemSim Reaction Simulator</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <!-- Welcome Modal -->
+  <div id="welcomeModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="beaker-icon">⚡</div>
+        <h1>Welcome to ChemSim Reaction Simulator</h1>
+        <p>Explore chemical reactions, visualize molecular behavior, and analyze energy diagrams in a safe, virtual environment.</p>
+      </div>
+      <div class="safety-alert">
+        <span class="warning-icon">⚠️</span>
+        <div>
+          <p class="alert-title">Safety First</p>
+          <p>Always follow proper laboratory procedures. Be cautious with exothermic reactions and unstable compounds.</p>
+        </div>
+      </div>
+      <button id="enterLabBtn" class="btn btn-primary">Start Simulator</button>
+    </div>
+  </div>
+
+  <!-- Failure Modal -->
+  <div id="failureModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="failure-icon">⚠️</div>
+        <h2>Simulation Alert</h2>
+        <p id="failureMessage"></p>
+      </div>
+      <button id="restartBtn" class="btn btn-danger">Close</button>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="container hidden" id="mainContainer">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="header-icon">⚡</div>
+        <div>
+          <h1 class="app-title">Labsim Von MozzaBot</h1>
+          <p class="app-subtitle">ChemSim - Reaction Simulator</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <a href="../../index.html" class="btn btn-secondary">← Back to Chapter 5</a>
+      </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="section">
+          <h2 class="section-title">Select Reaction</h2>
+          <div class="experiment-list" id="reactionList"></div>
+        </div>
+      </aside>
+
+      <!-- Main Workspace -->
+      <div class="workspace">
+        <!-- Placeholder -->
+        <div id="placeholderContent" class="placeholder">
+          <div class="placeholder-icon">⚡</div>
+          <p class="placeholder-title">Select a reaction to begin</p>
+          <p class="placeholder-subtitle">Choose from the list on the left</p>
+        </div>
+
+        <!-- Actual Workspace (hidden until selection) -->
+        <div id="workspaceContent" class="workspace-content hidden">
+          <!-- Header Info -->
+          <div class="info-header">
+            <h2 class="reaction-name" id="reactionName"></h2>
+            <p class="reaction-description" id="reactionDescription"></p>
+            <div class="equation-box" id="equationBox"></div>
+            <div class="header-info">
+              <div class="reaction-type-group">
+                <div class="reaction-type-badge" id="reactionTypeBadge"></div>
+                <span class="enthalpy-display" id="enthalpyDisplay"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Grid -->
+          <div class="main-grid">
+            <!-- 3D Scene -->
+            <div class="scene-container">
+              <canvas id="canvas3d" class="canvas-3d"></canvas>
+              <div class="scene-label">
+                <h4 class="label-title">Reactor Chamber</h4>
+                <div class="label-subtitle">Particles shown represent relative stoichiometric amounts</div>
+              </div>
+              <div class="progress-container">
+                <div class="progress-bar-wrapper">
+                  <div class="progress-bar" id="progressBar"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Control Panel -->
+            <div class="control-panel">
+              <div class="control-section">
+                <h3 class="section-title">Parameters</h3>
+                
+                <div class="parameter-group">
+                  <div class="parameter-label">
+                    <label>Initial Temperature</label>
+                    <span class="temp-display" id="tempDisplay">25 °C</span>
+                  </div>
+                  <input 
+                    type="range" 
+                    id="tempSlider" 
+                    min="0" 
+                    max="100" 
+                    step="5"
+                    value="25"
+                    class="slider"
+                  />
+                </div>
+
+                <div id="catalystContainer" class="catalyst-container" style="display:none;">
+                  <div class="checkbox-group">
+                    <input type="checkbox" id="catalystCheckbox" class="checkbox">
+                    <label for="catalystCheckbox" class="checkbox-label">Add Catalyst <span id="catalystName"></span></label>
+                  </div>
+                </div>
+
+                <div id="warningContainer" class="warning-box" style="display:none;">
+                  <span class="warning-icon">⚠️</span>
+                  <span id="warningText"></span>
+                </div>
+              </div>
+
+              <!-- Control Buttons -->
+              <div class="control-buttons">
+                <button id="playBtn" class="btn btn-primary">
+                  <span class="btn-icon">▶</span>
+                  START REACTION
+                </button>
+                <button id="resetBtn" class="btn btn-secondary">↻ Reset</button>
+              </div>
+
+              <div id="completeMsg" class="complete-message" style="display:none;">
+                Reaction Complete
+              </div>
+
+              <!-- Thermometer Widget -->
+              <div class="thermometer-widget">
+                <div class="therm-icon" id="thermIcon">🌡️</div>
+                <h3 class="widget-title">Live Temperature</h3>
+                <div class="temp-value">
+                  <span id="liveTemp">25</span><span class="unit">°C</span>
+                </div>
+                <div id="tempTrend" class="temp-trend" style="display:none;"></div>
+              </div>
+            </div>
+
+            <!-- Energy Diagram -->
+            <div class="energy-profile">
+              <h3 class="diagram-title">Energy Level Diagram</h3>
+              <canvas id="canvasEnergy" class="canvas-energy"></canvas>
+              <div class="diagram-description" id="diagramDescription"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="particles.js"></script>
+  <script src="energy-diagram.js"></script>
+  <script src="app.js"></script>
+  <noscript><meta http-equiv="refresh" content="0;url=../../error.html"/></noscript>
+</body>
+</html>

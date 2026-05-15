@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Explore electromagnetism with the DC Motor and Generator Simulator. Visualize magnetic fields, current flow, and electromagnetic induction in an interactive environment.">
+    <title>LVM C4: Electromagnetism Simulator</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- Welcome Modal -->
+    <div id="welcomeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="beaker-icon">⚡</div>
+                <h1>Welcome to Electromagnetism Simulator</h1>
+                <p>Explore DC motors and generators. Visualize magnetic fields, current flow, and electromagnetic induction.</p>
+            </div>
+            <div class="safety-alert">
+                <span class="warning-icon">⚠️</span>
+                <div>
+                    <p class="alert-title">Safety First</p>
+                    <p>Always handle electrical equipment carefully. Be aware of magnetic field hazards.</p>
+                </div>
+            </div>
+            <button id="enterLabBtn" class="btn btn-primary">Start Simulator</button>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container hidden" id="mainContainer">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="header-icon">⚡</div>
+                <div>
+                    <h1 class="app-title">Labsim Von MozzaBot</h1>
+                    <p class="app-subtitle">Electromagnetism Simulator</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="mode-buttons">
+                    <button id="btn-motor" class="mode-btn active">DC Motor</button>
+                    <button id="btn-generator" class="mode-btn">DC Generator</button>
+                </div>
+                <a href="../index.html" class="btn btn-secondary">← Back to Chapter 4</a>
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Control Panel Sidebar -->
+            <aside class="control-panel">
+                <div class="section">
+                    <h2 class="section-title">Controls</h2>
+                    
+                    <div class="control-section">
+                        <div class="control-buttons">
+                            <button id="playPause" class="btn btn-primary btn-block">▶ Play</button>
+                        </div>
+                    </div>
+
+                    <div class="parameter-group">
+                        <div class="parameter-label">
+                            <label>Magnitude / Speed</label>
+                            <span class="param-display" id="valInput">50%</span>
+                        </div>
+                        <input id="rangeInput" class="slider" type="range" min="0" max="100" value="50" />
+                        <p class="hint-text">Higher = stronger effect</p>
+                    </div>
+
+                    <div class="parameter-group">
+                        <div class="parameter-label">
+                            <label>Magnetic Field</label>
+                            <span class="param-display" id="valB">50%</span>
+                        </div>
+                        <input id="rangeB" class="slider" type="range" min="0" max="100" value="50" />
+                        <p class="hint-text">Stronger magnets = stronger effect</p>
+                    </div>
+
+                    <div class="toggle">
+                        <div>
+                            <div class="toggle-label">Reverse Input</div>
+                            <div class="toggle-hint">(Battery polarity / Rotation)</div>
+                        </div>
+                        <label class="switch">
+                            <input id="revInput" type="checkbox" />
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle">
+                        <div>
+                            <div class="toggle-label">Swap Magnets</div>
+                        </div>
+                        <label class="switch">
+                            <input id="revMag" type="checkbox" />
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-box" style="background:var(--amber)"></div>
+                            <span>Force / Motion</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-box" style="background:var(--blue)"></div>
+                            <span>Magnetic Field</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-box" style="background:var(--emerald)"></div>
+                            <span>Current</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="workspace">
+                <!-- Canvas -->
+                <div class="canvas-container">
+                    <canvas id="simCanvas" class="sim-canvas"></canvas>
+                </div>
+
+                <!-- Reference Diagrams -->
+                <div class="diagrams-section">
+                    <h2 class="diagrams-title">Reference Diagrams</h2>
+                    <div class="diagram-grid" id="diagramGrid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <noscript><meta http-equiv="refresh" content="0;url=/error.html"/></noscript>
+</body>
+</html>
+
