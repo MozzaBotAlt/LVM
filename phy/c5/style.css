@@ -535,6 +535,90 @@ body {
   border-bottom: none;
 }
 
+.procedure-section,
+.notebook-section {
+  background-color: rgba(15, 23, 42, 0.9);
+  border-top: 1px solid var(--border-color);
+  padding: 1.5rem;
+}
+
+.procedure-box {
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(71, 85, 105, 0.35);
+  border-radius: 0.85rem;
+  padding: 1rem;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.procedure-steps {
+  margin: 0;
+  padding-left: 18px;
+  list-style-position: inside;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.notebook-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.notebook-content {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0.85rem;
+  padding: 1rem;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.notebook-placeholder {
+  color: var(--text-secondary);
+  font-style: italic;
+  text-align: center;
+}
+
+.notebook-entry {
+  display: block;
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid rgba(59, 130, 246, 0.6);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.notebook-entry.success {
+  border-left-color: var(--accent-emerald);
+}
+
+.notebook-entry.warning {
+  border-left-color: var(--accent-amber);
+}
+
+.notebook-entry.danger {
+  border-left-color: var(--accent-red);
+}
+
+.notebook-entry.info {
+  border-left-color: var(--accent-blue);
+}
+
+.timestamp {
+  display: inline-block;
+  margin-right: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
 .control-title {
   font-size: 0.875rem;
   font-weight: bold;

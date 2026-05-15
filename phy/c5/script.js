@@ -42,7 +42,21 @@ class NuclearSimulator {
       this.controlRods5,
     ];
 
+    this.procedureSteps = document.getElementById("procedureSteps");
+    this.notebookContent = document.getElementById("notebookContent");
+    this.notebookTimeDisplay = document.getElementById("notebookTimeDisplay");
+    this.notebookEntries = [];
+    this.procedureStepsData = [
+      "Start the reactor and initialize monitoring systems.",
+      "Withdraw control rods slowly to increase fission rate.",
+      "Observe temperature, pressure, and power output.",
+      "Adjust control rods to maintain stable operation.",
+      "Use SCRAM immediately if temperature rises too high.",
+    ];
+
     this.setupEventListeners();
+    this.renderProcedure();
+    this.renderNotebook();
     this.updateDisplay();
     this.startSimulationLoop();
   }
@@ -53,6 +67,9 @@ class NuclearSimulator {
     this.scramBtn.addEventListener("click", () => this.scram());
     this.controlSlider.addEventListener("input", (e) =>
       this.setControlRods(e.target.value),
+    );
+    this.controlSlider.addEventListener("change", (e) =>
+      this.logNotebook(`Control rods adjusted to ${Math.round(e.target.value)}%.`, "info"),
     );
 
     this.tabButtons.forEach((btn) => {
@@ -68,6 +85,7 @@ class NuclearSimulator {
     this.startBtn.style.display = "none";
     this.stopBtn.style.display = "block";
     this.controlSlider.disabled = false;
+    this.logNotebook("Reactor started and control systems are active.", "success");
     this.updateDisplay();
   }
 
@@ -76,6 +94,7 @@ class NuclearSimulator {
     this.startBtn.style.display = "block";
     this.stopBtn.style.display = "none";
     this.controlSlider.disabled = true;
+    this.logNotebook("Reactor stopped. Systems are cooling down.", "warning");
     this.updateDisplay();
   }
 
@@ -87,6 +106,7 @@ class NuclearSimulator {
     this.stopBtn.style.display = "none";
     this.controlSlider.disabled = true;
     this.showAlert("⚠️ SCRAM activated! Reactor shut down for safety.");
+    this.logNotebook("SCRAM triggered. Reactor has been safely shut down.", "danger");
     this.updateDisplay();
   }
 
@@ -108,6 +128,7 @@ class NuclearSimulator {
     clickedButton.classList.add("active");
 
     this.activeTab = tab;
+    this.logNotebook(`Switched display to ${tab} view.`, "info");
   }
 
   updateControlRodVisuals() {
@@ -190,6 +211,51 @@ class NuclearSimulator {
   showAlert(message) {
     this.alertBox.textContent = message;
     this.alertBox.style.display = "block";
+  }
+
+  renderProcedure() {
+    if (!this.procedureSteps) return;
+    this.procedureSteps.innerHTML = "";
+    this.procedureStepsData.forEach((step) => {
+      const li = document.createElement("li");
+      li.textContent = step;
+      this.procedureSteps.appendChild(li);
+    });
+  }
+
+  logNotebook(message, type = "info") {
+    if (!this.notebookContent) return;
+    const timestamp = new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+    this.notebookEntries.push({ timestamp, message, type });
+    if (this.notebookEntries.length > 80) {
+      this.notebookEntries.shift();
+    }
+    if (this.notebookTimeDisplay) {
+      this.notebookTimeDisplay.textContent = timestamp;
+    }
+    this.renderNotebook();
+  }
+
+  renderNotebook() {
+    if (!this.notebookContent) return;
+    this.notebookContent.innerHTML = "";
+    if (!this.notebookEntries.length) {
+      this.notebookContent.innerHTML =
+        '<div class="notebook-placeholder"><p>Actions will be recorded here.</p></div>';
+      return;
+    }
+
+    this.notebookEntries.forEach((entry) => {
+      const entryEl = document.createElement("div");
+      entryEl.className = `notebook-entry ${entry.type}`;
+      entryEl.innerHTML = `<span class="timestamp">${entry.timestamp}</span>${entry.message}`;
+      this.notebookContent.appendChild(entryEl);
+    });
+    this.notebookContent.scrollTop = this.notebookContent.scrollHeight;
   }
 
   startSimulationLoop() {

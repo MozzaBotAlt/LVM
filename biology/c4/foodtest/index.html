@@ -13,8 +13,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="beaker-icon">🧪</div>
-        <h1>Welcome to BioLab Simulator</h1>
-        <p>Perform standard food tests (Benedict's, Iodine, Biuret, Ethanol) in a safe, virtual environment.</p>
+        <h1>Welcome to LVM Food Test Simulator</h1>
+        <p>Perform food tests (Benedict's, Iodine, Biuret, Ethanol) in a safe, virtual environment.</p>
       </div>
       <div class="safety-alert">
         <span class="warning-icon">⚠️</span>
@@ -67,18 +67,6 @@
           <div class="experiment-list" id="experimentList"></div>
         </div>
 
-        <!-- Lab Notebook moved to sidebar -->
-        <div class="notebook-section">
-          <div class="notebook-header">
-            <h3>Lab Notebook</h3>
-            <span class="time-display" id="timeDisplay"></span>
-          </div>
-          <div class="notebook-content" id="notebookContent">
-            <div class="notebook-placeholder">
-              <p>Actions will be recorded here.</p>
-            </div>
-          </div>
-        </div>
       </aside>
 
       <!-- Main Workspace -->
@@ -131,10 +119,24 @@
           </div>
 
           <!-- Right: Procedure -->
-          <div class="section" id="procedureSection" style="display: none;">
-            <h3 class="section-title">Procedure</h3>
-            <div class="procedure-box">
-              <ol class="procedure-steps" id="procedureSteps"></ol>
+          <div class="procedure-stack">
+            <div class="section" id="procedureSection" style="display: none;">
+              <h3 class="section-title">Procedure</h3>
+              <div class="procedure-box">
+                <ol class="procedure-steps" id="procedureSteps"></ol>
+              </div>
+            </div>
+
+            <div class="notebook-section">
+              <div class="notebook-header">
+                <h3>Lab Notebook</h3>
+                <span class="time-display" id="timeDisplay"></span>
+              </div>
+              <div class="notebook-content" id="notebookContent">
+                <div class="notebook-placeholder">
+                  <p>Actions will be recorded here.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
