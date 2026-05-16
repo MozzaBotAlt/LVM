@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Reaction rate simulator for IGCSE practice. Adjust temperature and concentration, select methods and observe rate changes.">
+        <title>LVM C3: Reaction Rate Simulator</title>
+        <link rel="stylesheet" href="./style.css">
+        <link rel="icon" href="/multimedia/image/images.webp" type="image/x-icon">
+</head>
+<body>
+
+    <!-- Welcome Modal -->
+    <div id="welcomeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="beaker-icon">⚗️</div>
+                <h1>Welcome to Reaction Rate Simulator</h1>
+                <p>Adjust experimental parameters and observe reaction kinetics in a safe virtual lab.</p>
+            </div>
+            <div class="safety-alert">
+                <span class="warning-icon">⚠️</span>
+                <div>
+                    <p class="alert-title">Safety Notice</p>
+                    <p>All results are simulated. Heat sources and chemicals are virtual.</p>
+                </div>
+            </div>
+            <button id="enterLabBtn" class="btn btn-primary">Start Experiment</button>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container hidden" id="mainContainer">
+        <header class="header">
+            <div class="header-left">
+                <div class="header-icon">⚗️</div>
+                <div>
+                    <h1 class="app-title">Labsim Von MozzaBot</h1>
+                    <p class="app-subtitle">Reaction Rate (C3)</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <a href="../../index.html" class="btn btn-secondary">← Back to Biology</a>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="section">
+                    <h2 class="section-title">Controls</h2>
+
+                    <div class="method-buttons" role="tablist" aria-label="Measurement method">
+                        <button class="method-btn active" data-method="gas">Gas</button>
+                        <button class="method-btn" data-method="mass">Mass</button>
+                        <button class="method-btn" data-method="cross">Obj. Obscured</button>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Temperature (°C): <span id="tempValue">25</span></label>
+                        <input type="range" id="tempSlider" min="20" max="60" value="25" step="1">
+                    </div>
+
+                    <div class="control-group">
+                        <label>Concentration (mol/dm³): <span id="concValue">1.0</span></label>
+                        <input type="range" id="concSlider" min="0.5" max="3" value="1" step="0.1">
+                    </div>
+
+                    <div class="control-group">
+                        <label>Start Method</label>
+                        <select id="startMethod">
+                            <option value="pour">Pouring</option>
+                            <option value="invert">Invert Tube</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Heat Location</label>
+                        <select id="heatLocation">
+                            <option value="none">No localized heating</option>
+                            <option value="base">Base of Tube</option>
+                            <option value="middle">Middle of Tube</option>
+                            <option value="top">Top of Tube</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group" id="syringeContainer" style="display:block;">
+                        <label>Syringe Type</label>
+                        <select id="syringe">
+                            <option value="100_glass">100cm³ Glass (Smooth)</option>
+                            <option value="50_plastic">50cm³ Plastic (Friction)</option>
+                        </select>
+                    </div>
+
+                    <div class="control-buttons">
+                        <button id="startBtn" class="btn btn-primary">Start</button>
+                        <button id="resetBtn" class="btn">Reset</button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Workspace -->
+            <div class="workspace">
+                <div id="placeholderContent" class="placeholder">
+                    <div class="placeholder-icon">⚗️</div>
+                    <p class="placeholder-title">Select parameters and start</p>
+                </div>
+
+                <div id="workspaceContent" class="workspace-content hidden">
+                    <div class="workspace-grid">
+                        <div class="panel">
+                            <h3>Apparatus</h3>
+                            <div class="diagram-container" id="diagramContainer"></div>
+                        </div>
+                        <div class="panel">
+                            <h3>Live Graph</h3>
+                            <div class="chart-container">
+                                <canvas id="chartCanvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <h4>Time</h4>
+                            <p id="timeDisplay">0s</p>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Reading</h4>
+                            <p id="readingDisplay">0</p>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Status</h4>
+                            <p id="statusDisplay">Ready</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <noscript><meta http-equiv="refresh" content="0;url=/error.html"/></noscript>
+</body>
+</html>

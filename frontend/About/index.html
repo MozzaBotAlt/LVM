@@ -16,6 +16,38 @@
             font-size: medium;
             margin: 10px 10px 10px;
         }
+        .acknowledgements-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem;
+            font-size: 1rem;
+        }
+        .acknowledgements-table th,
+        .acknowledgements-table td {
+            text-align: left;
+            padding: 0.75rem 0.75rem;
+            border-bottom: 1px solid #ccc;
+        }
+        .acknowledgements-table th {
+            font-weight: 700;
+        }
+        .developers-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: flex-start;
+        }
+        .developer-card {
+            flex: 1 1 260px;
+            max-width: 320px;
+            min-width: 220px;
+        }
+        .developer-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -65,13 +97,36 @@
             <p>Labsim was created by three developers from MRSM Langkawi. It is created to help users replicate experiment seamlessly. This simulator is created through multiple platforms to allow students replicate lab experiments accurately. Labsim is using IGCSE Biology 2026 syllabus as reference. Biology teachers can also use this platform in class as study aids to help students comprehend the topic more or if the teacher has no materials or apparatuses available.</p><br>
             
             <h2 style="text-decoration: underline; margin-top: 30px;">Acknowledgements</h2>
-            <ol>
-                <li>Ahmad 'Ammar bin Zainuddin...                     Advisor</li>
-                <li>Muhamad Fakhri bin Kamarul Zaman...               Advisor</li>
-                <li>Muhammad Norazraa bin Nordin...                   Advisor</li>
-                <li>Azmeer bin Arof...                                Presenter</li>
-                <li>People of Maktab Rendah Sains Mara Langkawi...    Supporter</li>
-            </ol>
+            <table class="acknowledgements-table" aria-label="Acknowledgements table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ahmad 'Ammar bin Zainuddin</td>
+                        <td>Advisor</td>
+                    </tr>
+                    <tr>
+                        <td>Muhamad Fakhri bin Kamarul Zaman</td>
+                        <td>Advisor</td>
+                    </tr>
+                    <tr>
+                        <td>Muhammad Norazraa bin Nordin</td>
+                        <td>Advisor</td>
+                    </tr>
+                    <tr>
+                        <td>Azmeer bin Arof</td>
+                        <td>Presenter</td>
+                    </tr>
+                    <tr>
+                        <td>People of Maktab Rendah Sains Mara Langkawi</td>
+                        <td>Supporter</td>
+                    </tr>
+                </tbody>
+            </table>
         </article>
 
         <div class="card">
@@ -107,6 +162,7 @@
     </main>
 
     <hr style="text-align:left;margin-left:0"> 
+    <script src="/script.js" defer></script>
     <script src="script.js" defer></script>
     <noscript><meta http-equiv="refresh" content="0;url=/error.html"></noscript>
     
