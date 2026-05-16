@@ -11,17 +11,29 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="/style.css" />
     <title>Labsim Von MozzaBot</title>
     <link rel="icon" href="/multimedia/image/images.webp" type="image/x-icon">
   </head>
   <body>
     <header class="site-header">
       <div class="header-inner">
-        <h1>Labsim Von MozzaBot</h1>
-        <p class="tagline">
-          IGCSE and KSSM Lab Simulator for Teacher and Students
-        </p>
+        <div class="header-brand">
+          <a href="./index.html" class="brand-logo">
+            <span class="brand-mark">💧</span>
+            <div>
+              <h1>Labsim Von MozzaBot</h1>
+              <p class="tagline">IGCSE and KSSM lab simulator for teachers and students</p>
+            </div>
+          </a>
+        </div>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a class="nav-link" href="./About/index.html">About</a>
+          <a class="nav-link" href="./labsim/index.html">Labsim</a>
+          <a class="nav-link" href="./help/index.html">Help</a>
+          <a class="nav-link" href="./contact/index.html">Contact</a>
+        </nav>
       </div>
     </header>
 
@@ -102,19 +114,18 @@
 
       <!-- Review -->
       <div class="scroll-panel">
-
-        <h2>Overall Rating by User Feedback</h2>
-          <div class="average-rating">
+        <h2 style="align-self:center; font-weight:bold;">Overall Rating by User Feedback</h2>
+          <div class="average-rating" style="align-self: center;">
             <span class="rating-text">4.0</span>
             <div class="review-stars">
               <span class="star filled">&#9733;</span>
               <span class="star filled">&#9733;</span>
               <span class="star filled">&#9733;</span>
-              <span class="star filled">&#9734;</span>
+              <span class="star filled">&#9733;</span>
               <span class="star unfilled">&#9734;</span>
           </div>
           </div><br>
-          <h2>What the students say.</h2>
+          <h2 style="align-self: center;">What the students say.</h2>
           <div class="scroll-ticker">
             <article class="scroll-card">
               <h3>Noah</h3>
@@ -131,6 +142,11 @@
               <p><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span></p>
               <p>Very good labsim, helps students simulate textbook experiments very effectively!</p>
             </article>
+            <article class="scroll-card">
+              <h3>Ameera</h3>
+              <p><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span></p>
+              <p>Very easy to acces compared to other ones</p>
+            </article>
           </div>
       </div>
 
@@ -139,12 +155,28 @@
       </div>
     </main>
 
-    <hr>
     <footer class="site-footer">
       <div class="footer-inner">
-        <p class="text-inner">&copy; 2025 Labsim Von MozzaBot.</p>
-        <p class="text-inner">GNU GPL License v3.0 — Developed by Long Infinity</p>
-        <p class="text-inner" style="margin-top: 10px;">Previous versions available <span><a href="http://github.com/MozzaBotAlt/LVM">here!</a></span></p>
+        <div class="footer-col">
+          <h3>About Labsim</h3>
+          <p>Interactive simulations designed for KSSM and IGCSE learners. Built to help students master science concepts with visual experiments.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick links</h3>
+          <ul>
+            <li><a href="./About/index.html">About</a></li>
+            <li><a href="./labsim/index.html">Labsim</a></li>
+            <li><a href="./help/index.html">Help</a></li>
+            <li><a href="./contact/index.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Project</h3>
+          <p>GNU GPL v3.0 licensed. Previous versions on <a href="http://github.com/MozzaBotAlt/LVM">GitHub</a>.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Labsim Von MozzaBot. Developed by Long Infinity.</p>
       </div>
     </footer>
     
