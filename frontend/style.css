@@ -111,6 +111,10 @@ button:disabled,
 
 /* Header */
 .site-header {
+  color:#9feeee;
+  opacity: 0.75;
+  border-bottom: 1px solid rgba(128, 216, 255, 0.12);
+  margin-bottom: auto;
   text-align: center;
   padding: 24px 0 8px;
 }
@@ -126,10 +130,13 @@ button:disabled,
 .site-footer {
   text-align: center;
   padding: 18px 8px;
-  color: #9feeee;
+  color: black;
   opacity: 0.95;
   border-top: 1px solid rgba(128, 216, 255, 0.12);
   margin-top: 32px;
+}
+.text-inner {
+  color: white;
 }
 
 /* Navigation */
