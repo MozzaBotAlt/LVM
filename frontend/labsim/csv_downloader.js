@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const addResult = (r) => {
     window.results.push(r);
-    console.log('result added', r);
   };
 
   window.exportResultsCSV = () => {

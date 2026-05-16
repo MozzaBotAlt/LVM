@@ -122,9 +122,7 @@
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                const data = await response.json();
-                const serverData = data;
-                console.log('Data from server:', serverData);
+                await response.json();
             } catch (error) { console.error(error); }
         }
 
@@ -133,14 +131,14 @@
             try {
                 const res = await fetch(baseurl + 'api/date');
                 const data = await res.json();
-                console.log(data);
-                const date = new Date(data.date);
+                const dateElement = document.getElementById('date');
+                if (!dateElement) return;
+                const date = new Date(data?.date);
                 if (isNaN(date)) {
-                    document.getElementById('date').textContent = 'Invalid date received';
+                    dateElement.textContent = 'Invalid date received';
                 } else {
-                    document.getElementById('date').textContent = date.toString();
+                    dateElement.textContent = date.toString();
                 }
-                console.log(date)
             } catch (error) { console.error(error); }
         }
         fetchDate();
