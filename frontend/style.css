@@ -591,6 +591,7 @@ li {
 
       .scroll-card {
         min-width: 280px;
+        max-width: 400px;
         flex: 0 0 auto;
         background: rgba(4, 17, 42, 0.95);
         border: 1px solid rgba(0, 255, 247, 0.12);
@@ -608,6 +609,7 @@ li {
       .scroll-card p {
         color: #cfefff;
         line-height: 1.75;
+        max-width: 320px;
         font-size: 0.96rem;
       }
 
@@ -656,3 +658,37 @@ li {
           min-width: 240px;
         }
       }
+
+/* Stars */
+.checked {
+  color: orange;
+}
+
+.review-stars {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 40px; /* Adjust size here */
+  }
+  .star.filled {
+    color: #ffc107; /* Gold color */
+  }
+  .star.unfilled {
+    color: #e4e5e9; /* Light gray color */
+  }
+  .rating-text {
+    font-size: 16px;
+    margin-left: 10px;
+    font-family: sans-serif;
+  }
+
+.average-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 24px; /* Adjust size here */
+    margin-top: 12px;
+  }
+  .average-rating .star {
+    color: #ffc107; /* Gold color */
+  }

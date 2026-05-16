@@ -1,146 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Reaction rate simulator for IGCSE practice. Adjust temperature and concentration, select methods and observe rate changes.">
-        <title>LVM C3: Reaction Rate Simulator</title>
-        <link rel="stylesheet" href="./style.css">
-        <link rel="icon" href="/multimedia/image/images.webp" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Osmosis simulator for IGCSE Biology practice. Adjust concentration and volume to observe cell behaviour under different solutions.">
+  <title>LVM C3: Osmosis Simulator</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-
-    <!-- Welcome Modal -->
-    <div id="welcomeModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="beaker-icon">⚗️</div>
-                <h1>Welcome to Reaction Rate Simulator</h1>
-                <p>Adjust experimental parameters and observe reaction kinetics in a safe virtual lab.</p>
-            </div>
-            <div class="safety-alert">
-                <span class="warning-icon">⚠️</span>
-                <div>
-                    <p class="alert-title">Safety Notice</p>
-                    <p>All results are simulated. Heat sources and chemicals are virtual.</p>
-                </div>
-            </div>
-            <button id="enterLabBtn" class="btn btn-primary">Start Experiment</button>
+  <div id="welcomeModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="beaker-icon">💧</div>
+        <h1>Welcome to Osmosis Simulator</h1>
+        <p>Use the controls to explore how animal and plant cells respond to isotonic, hypertonic and hypotonic solutions.</p>
+      </div>
+      <div class="safety-alert">
+        <span class="warning-icon">⚠️</span>
+        <div>
+          <p class="alert-title">Lab Simulation</p>
+          <p>This is a virtual experiment. No real chemicals are required.</p>
         </div>
+      </div>
+      <button id="enterLabBtn" class="btn btn-primary">Enter Lab</button>
     </div>
+  </div>
 
-    <!-- Main Container -->
-    <div class="container hidden" id="mainContainer">
-        <header class="header">
-            <div class="header-left">
-                <div class="header-icon">⚗️</div>
-                <div>
-                    <h1 class="app-title">Labsim Von MozzaBot</h1>
-                    <p class="app-subtitle">Reaction Rate (C3)</p>
-                </div>
-            </div>
-            <div class="header-right">
-                <a href="../../index.html" class="btn btn-secondary">← Back to Biology</a>
-            </div>
-        </header>
-
-        <div class="main-layout">
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <div class="section">
-                    <h2 class="section-title">Controls</h2>
-
-                    <div class="method-buttons" role="tablist" aria-label="Measurement method">
-                        <button class="method-btn active" data-method="gas">Gas</button>
-                        <button class="method-btn" data-method="mass">Mass</button>
-                        <button class="method-btn" data-method="cross">Obj. Obscured</button>
-                    </div>
-
-                    <div class="control-group">
-                        <label>Temperature (°C): <span id="tempValue">25</span></label>
-                        <input type="range" id="tempSlider" min="20" max="60" value="25" step="1">
-                    </div>
-
-                    <div class="control-group">
-                        <label>Concentration (mol/dm³): <span id="concValue">1.0</span></label>
-                        <input type="range" id="concSlider" min="0.5" max="3" value="1" step="0.1">
-                    </div>
-
-                    <div class="control-group">
-                        <label>Start Method</label>
-                        <select id="startMethod">
-                            <option value="pour">Pouring</option>
-                            <option value="invert">Invert Tube</option>
-                        </select>
-                    </div>
-
-                    <div class="control-group">
-                        <label>Heat Location</label>
-                        <select id="heatLocation">
-                            <option value="none">No localized heating</option>
-                            <option value="base">Base of Tube</option>
-                            <option value="middle">Middle of Tube</option>
-                            <option value="top">Top of Tube</option>
-                        </select>
-                    </div>
-
-                    <div class="control-group" id="syringeContainer" style="display:block;">
-                        <label>Syringe Type</label>
-                        <select id="syringe">
-                            <option value="100_glass">100cm³ Glass (Smooth)</option>
-                            <option value="50_plastic">50cm³ Plastic (Friction)</option>
-                        </select>
-                    </div>
-
-                    <div class="control-buttons">
-                        <button id="startBtn" class="btn btn-primary">Start</button>
-                        <button id="resetBtn" class="btn">Reset</button>
-                    </div>
-                </div>
-            </aside>
-
-            <!-- Workspace -->
-            <div class="workspace">
-                <div id="placeholderContent" class="placeholder">
-                    <div class="placeholder-icon">⚗️</div>
-                    <p class="placeholder-title">Select parameters and start</p>
-                </div>
-
-                <div id="workspaceContent" class="workspace-content hidden">
-                    <div class="workspace-grid">
-                        <div class="panel">
-                            <h3>Apparatus</h3>
-                            <div class="diagram-container" id="diagramContainer"></div>
-                        </div>
-                        <div class="panel">
-                            <h3>Live Graph</h3>
-                            <div class="chart-container">
-                                <canvas id="chartCanvas"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="stats-grid">
-                        <div class="stat-box">
-                            <h4>Time</h4>
-                            <p id="timeDisplay">0s</p>
-                        </div>
-                        <div class="stat-box">
-                            <h4>Reading</h4>
-                            <p id="readingDisplay">0</p>
-                        </div>
-                        <div class="stat-box">
-                            <h4>Status</h4>
-                            <p id="statusDisplay">Ready</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+  <div id="mainContainer" class="container hidden">
+    <header class="header">
+      <div class="header-left">
+        <div class="header-icon">💧</div>
+        <div>
+          <h1 class="app-title">Osmosis Simulator</h1>
+          <p class="app-subtitle">C3 Biology</p>
         </div>
-    </div>
+      </div>
+      <div class="header-actions">
+        <a href="../index.html" class="btn btn-secondary btn-sm">← Back to Biology</a>
+        <a href="#quiz" class="btn btn-secondary btn-sm">Take Quiz</a>
+      </div>
+    </header>
 
-    <script src="script.js"></script>
-    <noscript><meta http-equiv="refresh" content="0;url=/error.html"/></noscript>
+    <main class="main-layout">
+      <aside class="sidebar">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Apparatus Parameters</h2>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Cell Type</label>
+            <div class="toggle-row">
+              <button class="cell-type-btn active" data-type="animal">Animal</button>
+              <button class="cell-type-btn" data-type="plant">Plant</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Beaker Solute Concentration</label>
+            <div class="control-meta"><span id="concValue">1.0%</span></div>
+            <input type="range" id="concentrationSlider" min="0.0" max="2.0" step="0.1" value="1.0">
+            <div class="range-labels">
+              <span>0%</span>
+              <span>1%</span>
+              <span>2%</span>
+            </div>
+          </div>
+
+          <div class="status-card status-card-info">
+            <span class="status-label">External Water Potential</span>
+            <span class="status-value" id="tonicityIndicator">Equal (Isotonic)</span>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Beaker Volume</label>
+            <div class="control-meta"><span id="volumeValue">70 mL</span></div>
+            <input type="range" id="volumeSlider" min="40" max="100" step="1" value="70">
+          </div>
+
+          <div class="panel-note">
+            <strong>Tip:</strong> Internal cell concentration is fixed at 1.0%. Increase or decrease the external concentration to observe different tonicity states.
+          </div>
+        </div>
+      </aside>
+
+      <section class="workspace">
+        <div class="workspace-inner">
+          <div class="workspace-header">
+            <h2>Simulation View</h2>
+            <p>Watch how the cell responds to osmotic changes.</p>
+          </div>
+          <div class="cell-display" id="cellWrapper">
+            <svg id="cellSvg" class="cell-svg" viewBox="0 0 100 100"></svg>
+          </div>
+          <div class="status-grid">
+            <div class="stat-box">
+              <span class="stat-label">State</span>
+              <span class="stat-value" id="tonicityLabel">isotonic</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Net Flow</span>
+              <span class="stat-value" id="waterFlow">Zero net movement</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Condition</span>
+              <span class="stat-value" id="cellCondition">Normal</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section class="content-section">
+      <div class="section-heading">
+        <h2>Understanding Tonicity</h2>
+        <p>Visual guides for the three main states.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>Isotonic</h3>
+          <div class="feature-visual feature-visual-center">
+            <span>↔️</span>
+          </div>
+          <p>Equal solute concentration inside and outside. No net movement.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Hypertonic</h3>
+          <div class="feature-visual feature-visual-outward">
+            <span>➡️</span>
+            <span>⬅️</span>
+          </div>
+          <p>High solute concentration outside. Water moves out of the cell.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Hypotonic</h3>
+          <div class="feature-visual feature-visual-inward">
+            <span>⬅️</span>
+            <span>➡️</span>
+          </div>
+          <p>Low solute concentration outside. Water moves into the cell.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="content-section">
+      <div class="section-heading">
+        <h2>Test Your Knowledge</h2>
+        <p>5 quick questions about cellular osmosis.</p>
+      </div>
+      <div id="quizContainer" class="quiz-card"></div>
+    </section>
+
+    <footer class="footer">
+      <p>Built with vanilla HTML, CSS, and JavaScript.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
+

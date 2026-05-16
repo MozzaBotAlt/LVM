@@ -1,453 +1,402 @@
-const state = {
-  method: "gas",
-  heatLocation: "none",
-  syringe: "100_glass",
-  startMethod: "pour",
-  temp: 25,
-  conc: 1,
-  isRunning: false,
-  time: 0,
-  data: [],
+// Quiz Questions
+const questions = [
+  {
+    id: 1,
+    question:
+      "Which of the following is the most accurate definition of osmosis according to the IGCSE/SPM syllabus?",
+    options: [
+      "The movement of solutes from a high concentration to a low concentration.",
+      "The net movement of water molecules from a region of higher water potential to a region of lower water potential, through a partially permeable membrane.",
+      "The active transport of water molecules against a concentration gradient.",
+      "The movement of water into a cell causing it to burst.",
+    ],
+    correct: 1,
+    explanation:
+      "Osmosis is specifically about water movement across a partially permeable membrane in response to water potential differences, not active movement of solutes.",
+  },
+  {
+    id: 2,
+    question:
+      "An animal cell is placed in a hypertonic solution. What will happen to the cell?",
+    options: [
+      "The cell will remain unchanged.",
+      "The cell will swell and burst (lyse).",
+      "The cell will shrivel and crenate.",
+      "The cell will absorb the solutes.",
+    ],
+    correct: 2,
+    explanation:
+      "In a hypertonic solution (high solute concentration outside), water moves out of the cell, causing it to shrivel. In animal cells, this creates a crenated appearance.",
+  },
+  {
+    id: 3,
+    question:
+      "What is the role of the partially permeable cell membrane in osmosis?",
+    options: [
+      "It actively pumps water molecules across itself.",
+      "It allows both water and solute molecules to pass through freely.",
+      "It allows water molecules to pass through but restricts the passage of larger solute molecules.",
+      "It prevents any movement of molecules across it.",
+    ],
+    correct: 2,
+    explanation:
+      "The partially permeable membrane is semipermeable - it allows small water molecules through but blocks larger dissolved solutes, creating the conditions for osmosis.",
+  },
+  {
+    id: 4,
+    question:
+      "A plant cell is placed in a hypotonic solution. What happens to the cell?",
+    options: [
+      "The cell becomes plasmolysed.",
+      "The cell becomes turgid and rigid.",
+      "The cell remains flaccid.",
+      "The cell wall dissolves.",
+    ],
+    correct: 1,
+    explanation:
+      "In a hypotonic solution (low solute concentration outside), water enters the cell by osmosis. The vacuole fills with water, pressing the cytoplasm against the cell wall, making the plant cell turgid and rigid.",
+  },
+  {
+    id: 5,
+    question: "What is the relationship between water potential and osmosis?",
+    options: [
+      "Water potential has no effect on osmosis.",
+      "Water always moves from a region of higher water potential to a region of lower water potential.",
+      "Water moves from lower to higher water potential.",
+      "Water potential only affects plant cells.",
+    ],
+    correct: 1,
+    explanation:
+      "This is the fundamental principle: water molecules move by osmosis from regions of higher (less negative) water potential to regions of lower (more negative) water potential.",
+  },
+];
+
+// State
+let state = {
+  cellType: "animal",
+  externalConcentration: 1.0,
+  volumeLevel: 70,
+  currentQuestionIndex: 0,
+  selectedAnswerIndex: null,
+  showExplanation: false,
+  score: 0,
+  quizFinished: false,
 };
 
-const maxVolume = 100;
-let timerInterval = null;
-
-const methodBtns = document.querySelectorAll(".method-btn");
-const startBtn = document.getElementById("startBtn");
-const resetBtn = document.getElementById("resetBtn");
-const tempSlider = document.getElementById("tempSlider");
-const concSlider = document.getElementById("concSlider");
-const startMethodSelect = document.getElementById("startMethod");
-const heatLocationSelect = document.getElementById("heatLocation");
-const syringeSelect = document.getElementById("syringe");
-const syringeContainer = document.getElementById("syringeContainer");
-const diagramContainer = document.getElementById("diagramContainer");
-const chartCanvas = document.getElementById("chartCanvas");
-const enterLabBtn = document.getElementById("enterLabBtn");
-const welcomeModal = document.getElementById("welcomeModal");
-const mainContainer = document.getElementById("mainContainer");
-const workspaceContent = document.getElementById("workspaceContent");
-const placeholderContent = document.getElementById("placeholderContent");
-
-methodBtns.forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    const method = e.target.dataset.method;
-    state.method = method;
-    syringeContainer.style.display = method === "gas" ? "block" : "none";
-    resetSimulation();
-    updateUI();
-  });
+// Initialize
+document.addEventListener("DOMContentLoaded", function () {
+  setupEventListeners();
+  updateSimulation();
+  renderQuiz();
 });
 
-startBtn.addEventListener("click", startSimulation);
-resetBtn.addEventListener("click", resetSimulation);
-tempSlider.addEventListener("input", (e) => {
-  state.temp = Number(e.target.value);
-  document.getElementById("tempValue").textContent = state.temp;
-});
-concSlider.addEventListener("input", (e) => {
-  state.conc = Number(e.target.value);
-  document.getElementById("concValue").textContent = state.conc.toFixed(1);
-});
-startMethodSelect.addEventListener("change", (e) => {
-  state.startMethod = e.target.value;
-  if (state.isRunning) resetSimulation();
-});
-heatLocationSelect.addEventListener("change", (e) => {
-  state.heatLocation = e.target.value;
-  if (state.isRunning) resetSimulation();
-});
-syringeSelect.addEventListener("change", (e) => {
-  state.syringe = e.target.value;
-  if (state.isRunning) resetSimulation();
-});
+// Event Listeners
+function setupEventListeners() {
+  // Cell type buttons
+  document.querySelectorAll(".cell-type-btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const type = this.getAttribute("data-type");
+      state.cellType = type;
 
-function calculateValue(t) {
-  let k = 0.05 * state.conc * Math.exp((state.temp - 25) * 0.05);
-
-  if (state.heatLocation === "top") k *= 0.5;
-  if (state.heatLocation === "middle") k *= 0.8;
-  if (state.heatLocation === "base") k *= 1.2;
-
-  let value = 0;
-
-  if (state.method === "gas") {
-    value = maxVolume * (1 - Math.exp(-k * t));
-
-    if (state.startMethod === "pour") {
-      value -= 5;
-    }
-    if (value < 0) value = 0;
-
-    if (state.syringe === "50_plastic") {
-      if (value > 50) value = 50;
-      value = Math.floor(value / 2) * 2;
-    }
-  } else if (state.method === "mass") {
-    value = 100 - maxVolume * 0.01 * (1 - Math.exp(-k * t));
-  } else {
-    value = 100 * Math.exp(-k * t * 0.5);
-  }
-  return Number(value.toFixed(2));
-}
-
-function startSimulation() {
-  if (state.isRunning) return;
-  resetSimulation();
-  // reveal workspace on first start
-  if (workspaceContent && placeholderContent) {
-    workspaceContent.classList.remove("hidden");
-    placeholderContent.classList.add("hidden");
-  }
-  state.isRunning = true;
-  startBtn.disabled = true;
-  tempSlider.disabled = true;
-  concSlider.disabled = true;
-  startMethodSelect.disabled = true;
-  heatLocationSelect.disabled = true;
-  syringeSelect.disabled = true;
-
-  timerInterval = setInterval(() => {
-    state.time++;
-    if (state.time >= 100) {
-      state.isRunning = false;
-      clearInterval(timerInterval);
-    }
-    if (state.time <= 100) {
-      state.data.push({ time: state.time, value: calculateValue(state.time) });
-    }
-    updateUI();
-  }, 100);
-}
-
-function resetSimulation() {
-  state.isRunning = false;
-  state.time = 0;
-  state.data = [];
-  if (timerInterval) clearInterval(timerInterval);
-  startBtn.disabled = false;
-  tempSlider.disabled = false;
-  concSlider.disabled = false;
-  startMethodSelect.disabled = false;
-  heatLocationSelect.disabled = false;
-  syringeSelect.disabled = false;
-  updateUI();
-}
-
-function updateUI() {
-  methodBtns.forEach((btn) => {
-    btn.classList.toggle("active", btn.dataset.method === state.method);
+      document
+        .querySelectorAll(".cell-type-btn")
+        .forEach((b) => b.classList.remove("active"));
+      this.classList.add("active");
+      updateSimulation();
+    });
   });
 
-  document.getElementById("timeDisplay").textContent = state.time + "s";
-  document.getElementById("readingDisplay").textContent =
-    state.data.length > 0 ? state.data[state.data.length - 1].value : 0;
-  document.getElementById("statusDisplay").textContent = state.isRunning
-    ? "Running"
-    : state.time >= 100
-      ? "Complete"
-      : "Ready";
+  // Concentration slider
+  document
+    .getElementById("concentrationSlider")
+    .addEventListener("input", function () {
+      state.externalConcentration = parseFloat(this.value);
+      updateSimulation();
+    });
 
-  renderDiagram();
-  renderChart();
-}
+  // Volume slider
+  document
+    .getElementById("volumeSlider")
+    .addEventListener("input", function () {
+      state.volumeLevel = parseInt(this.value);
+      updateSimulation();
+    });
 
-function getYAxisLabel() {
-  if (state.method === "gas") return "Volume (cm³)";
-  if (state.method === "mass") return "Mass (g)";
-  return "Light Trans. (%)";
-}
+  const enterLabBtn = document.getElementById("enterLabBtn");
+  const welcomeModal = document.getElementById("welcomeModal");
+  const mainContainer = document.getElementById("mainContainer");
 
-function renderDiagram() {
-  diagramContainer.innerHTML = "";
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttribute("class", "flask-diagram");
-  svg.setAttribute("viewBox", "0 0 200 200");
-  svg.setAttribute("width", "200");
-  svg.setAttribute("height", "200");
-
-  const liquidColor =
-    state.method === "cross"
-      ? state.isRunning
-        ? "#cbd5e1"
-        : "#e2e8f0"
-      : "#bae6fd";
-  const liquidPath = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "path",
-  );
-  liquidPath.setAttribute(
-    "d",
-    "M 85 110 L 115 110 L 140 170 C 145 185 135 190 120 190 L 80 190 C 65 190 55 185 60 170 Z",
-  );
-  liquidPath.setAttribute("fill", liquidColor);
-  svg.appendChild(liquidPath);
-
-  if (state.isRunning && state.method !== "cross") {
-    const bubbles = [
-      { cx: 95, cy: 170, r: 3 },
-      { cx: 105, cy: 150, r: 4 },
-      { cx: 90, cy: 130, r: 2 },
-      { cx: 110, cy: 160, r: 3 },
-    ];
-    bubbles.forEach((bubble) => {
-      const circle = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "circle",
-      );
-      circle.setAttribute("cx", bubble.cx);
-      circle.setAttribute("cy", bubble.cy);
-      circle.setAttribute("r", bubble.r);
-      circle.setAttribute("fill", "#fff");
-      circle.classList.add("animate-pulse");
-      svg.appendChild(circle);
+  if (enterLabBtn) {
+    enterLabBtn.addEventListener("click", function () {
+      if (welcomeModal) welcomeModal.classList.add("hidden");
+      if (mainContainer) mainContainer.classList.remove("hidden");
     });
   }
-
-  const flaskPath = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "path",
-  );
-  flaskPath.setAttribute(
-    "d",
-    "M 85 50 L 115 50 L 115 100 L 150 180 C 160 200 140 200 120 200 L 80 200 C 60 200 40 200 50 180 L 85 100 Z",
-  );
-  flaskPath.setAttribute("fill", "none");
-  flaskPath.setAttribute("stroke", "#475569");
-  flaskPath.setAttribute("stroke-width", "3");
-  svg.appendChild(flaskPath);
-
-  if (state.method === "mass") {
-    const ellipse = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "ellipse",
-    );
-    ellipse.setAttribute("cx", "100");
-    ellipse.setAttribute("cy", "50");
-    ellipse.setAttribute("rx", "20");
-    ellipse.setAttribute("ry", "10");
-    ellipse.setAttribute("fill", "#f8fafc");
-    ellipse.setAttribute("stroke", "#cbd5e1");
-    ellipse.setAttribute("stroke-width", "2");
-    ellipse.setAttribute("stroke-dasharray", "2 2");
-    svg.appendChild(ellipse);
-  }
-
-  if (state.method === "gas") {
-    const bungPath = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "path",
-    );
-    bungPath.setAttribute("d", "M 80 40 L 120 40 L 115 60 L 85 60 Z");
-    bungPath.setAttribute("fill", "#334155");
-    svg.appendChild(bungPath);
-
-    const tubePath = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "path",
-    );
-    tubePath.setAttribute(
-      "d",
-      "M 100 70 L 100 20 L 180 20 L 180 30 L 110 30 L 110 70 Z",
-    );
-    tubePath.setAttribute("fill", "#e2e8f0");
-    tubePath.setAttribute("stroke", "#94a3b8");
-    svg.appendChild(tubePath);
-  }
-
-  if (state.heatLocation !== "none") {
-    const heatPositions = {
-      base: { top: "85%", left: "50%" },
-      middle: { top: "65%", left: "40%" },
-      top: { top: "45%", left: "40%" },
-    };
-    const pos = heatPositions[state.heatLocation];
-    const flameGroup = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "g",
-    );
-    const flame = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "path",
-    );
-    flame.setAttribute("d", "M 10 20 Q 5 10 8 0 Q 12 10 15 5 Q 18 15 20 20 Z");
-    flame.setAttribute("fill", "#f97316");
-    flameGroup.appendChild(flame);
-    flameGroup.classList.add("animate-pulse");
-    flameGroup.style.position = "absolute";
-    flameGroup.style.top = pos.top;
-    flameGroup.style.left = pos.left;
-    flameGroup.style.transform = "translate(-50%, -50%)";
-    flameGroup.style.width = "24px";
-    flameGroup.style.height = "24px";
-    diagramContainer.appendChild(flameGroup);
-  }
-
-  if (state.method === "cross") {
-    const eyeGroup = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "g",
-    );
-    const eyePath = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "path",
-    );
-    eyePath.setAttribute(
-      "d",
-      "M 0 10 Q -5 5 -5 0 Q -5 -5 0 -10 Q 5 -5 5 0 Q 5 5 0 10 Z M 0 2 C -2 2 -3 1 -3 0 C -3 -1 -2 -2 0 -2 C 2 -2 3 -1 3 0 C 3 1 2 2 0 2 Z",
-    );
-    eyePath.setAttribute("fill", "#475569");
-    eyeGroup.appendChild(eyePath);
-    eyeGroup.style.position = "absolute";
-    eyeGroup.style.top = "10%";
-    eyeGroup.style.left = "50%";
-    eyeGroup.style.transform = "translate(-50%, -50%)";
-    eyeGroup.style.width = "24px";
-    eyeGroup.style.height = "24px";
-    diagramContainer.appendChild(eyeGroup);
-  }
-
-  if (state.method === "cross") {
-    const crossDiv = document.createElement("div");
-    crossDiv.style.position = "absolute";
-    crossDiv.style.top = "75%";
-    crossDiv.style.left = "50%";
-    crossDiv.style.transform = "translate(-50%, -50%) rotate(-12deg)";
-    crossDiv.style.backgroundColor = "white";
-    crossDiv.style.padding = "1rem";
-    crossDiv.style.borderRadius = "0.375rem";
-    crossDiv.style.opacity = "0.5";
-    crossDiv.style.fontWeight = "bold";
-    crossDiv.style.fontSize = "2.25rem";
-    crossDiv.textContent = "X";
-    diagramContainer.appendChild(crossDiv);
-  }
-
-  if (state.method === "mass") {
-    const scaleDiv = document.createElement("div");
-    scaleDiv.style.position = "absolute";
-    scaleDiv.style.top = "80%";
-    scaleDiv.style.left = "50%";
-    scaleDiv.style.transform = "translate(-50%, -50%)";
-    scaleDiv.style.backgroundColor = "#3f3f46";
-    scaleDiv.style.padding = "1rem";
-    scaleDiv.style.borderRadius = "0.5rem";
-    scaleDiv.style.borderBottom = "4px solid #27272a";
-    scaleDiv.style.width = "12rem";
-    scaleDiv.style.height = "3rem";
-    scaleDiv.style.display = "flex";
-    scaleDiv.style.alignItems = "center";
-    scaleDiv.style.justifyContent = "center";
-
-    const display = document.createElement("div");
-    display.style.backgroundColor = "#d1fae5";
-    display.style.color = "#065f46";
-    display.style.fontFamily = "monospace";
-    display.style.fontSize = "1.25rem";
-    display.style.padding = "0.25rem 1rem";
-    display.style.borderRadius = "0.375rem";
-    display.style.boxShadow = "inset 0 2px 4px rgba(0, 0, 0, 0.1)";
-    display.textContent = state.isRunning ? "---.--" : "0.00";
-    display.textContent += " g";
-    scaleDiv.appendChild(display);
-    diagramContainer.appendChild(scaleDiv);
-  }
-
-  diagramContainer.appendChild(svg);
 }
 
-function renderChart() {
-  const ctx = chartCanvas.getContext("2d");
-  const rect = chartCanvas.getBoundingClientRect();
-  chartCanvas.width = rect.width;
-  chartCanvas.height = rect.height;
+// Calculate tonicity based on external concentration
+function calculateTonicity(externalConc) {
+  const internalConc = 1.0; // Fixed at 1%
+  if (externalConc < 0.9) return "hypotonic";
+  if (externalConc > 1.1) return "hypertonic";
+  return "isotonic";
+}
 
-  const padding = 60;
-  const width = chartCanvas.width - padding * 2;
-  const height = chartCanvas.height - padding * 2;
+// Update simulation display
+function updateSimulation() {
+  const tonicity = calculateTonicity(state.externalConcentration);
 
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, chartCanvas.width, chartCanvas.height);
+  // Update concentration display
+  document.getElementById("concValue").textContent =
+    state.externalConcentration.toFixed(1) + "%";
 
-  ctx.strokeStyle = "#e2e8f0";
-  ctx.lineWidth = 1;
-  for (let i = 0; i <= 10; i++) {
-    const y = padding + (i * height) / 10;
-    ctx.beginPath();
-    ctx.moveTo(padding, y);
-    ctx.lineTo(chartCanvas.width - padding, y);
-    ctx.stroke();
+  // Update tonicity indicator
+  let tonicityText = "Equal (Isotonic)";
+  let tonicityClass = "text-green-600";
+  if (state.externalConcentration < 0.9) {
+    tonicityText = "High (Hypotonic)";
+    tonicityClass = "text-blue-600";
+  } else if (state.externalConcentration > 1.1) {
+    tonicityText = "Low (Hypertonic)";
+    tonicityClass = "text-red-600";
+  }
+  const indicator = document.getElementById("tonicityIndicator");
+  indicator.textContent = tonicityText;
+  indicator.className = tonicityClass + " text-base font-bold";
+
+  // Update volume display
+  document.getElementById("volumeValue").textContent =
+    state.volumeLevel + " mL";
+
+  // Render cell
+  renderCell(tonicity);
+
+  // Update status cards
+  updateStatusCards(tonicity);
+}
+
+// Render SVG Cell
+function renderCell(tonicity) {
+  const svg = document.getElementById("cellSvg");
+  svg.innerHTML = "";
+
+  const cellColor = state.cellType === "animal" ? "#EFF6FF" : "#DCFCE7";
+  const borderColor = state.cellType === "animal" ? "#3B82F6" : "#16A34A";
+
+  if (state.cellType === "animal") {
+    // Animal cell (circle)
+    const cellShapeScale =
+      tonicity === "isotonic" ? 1 : tonicity === "hypertonic" ? 0.75 : 1.1;
+    const size = 50 * cellShapeScale;
+    const offset = (100 - size) / 2;
+
+    const circle = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "circle",
+    );
+    circle.setAttribute("cx", "50");
+    circle.setAttribute("cy", "50");
+    circle.setAttribute("r", size / 2);
+    circle.setAttribute("fill", cellColor);
+    circle.setAttribute("stroke", borderColor);
+    circle.setAttribute("stroke-width", "2");
+    svg.appendChild(circle);
+
+    // Add nucleus
+    const nucleus = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "circle",
+    );
+    nucleus.setAttribute("cx", "50");
+    nucleus.setAttribute("cy", "50");
+    nucleus.setAttribute("r", "6");
+    nucleus.setAttribute("fill", "#9333EA");
+    svg.appendChild(nucleus);
+  } else {
+    // Plant cell (rectangle with curved corners)
+    let cellScale = 1;
+    let vacuoleScale = 0.6;
+
+    if (tonicity === "hypertonic") {
+      cellScale = 0.85;
+      vacuoleScale = 0.3;
+    } else if (tonicity === "hypotonic") {
+      cellScale = 1;
+      vacuoleScale = 0.85;
+    }
+
+    const size = 60 * cellScale;
+    const offset = (100 - size) / 2;
+
+    // Cell wall
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", offset);
+    rect.setAttribute("y", offset);
+    rect.setAttribute("width", size);
+    rect.setAttribute("height", size);
+    rect.setAttribute("rx", "4");
+    rect.setAttribute("fill", cellColor);
+    rect.setAttribute("stroke", borderColor);
+    rect.setAttribute("stroke-width", "2");
+    svg.appendChild(rect);
+
+    // Vacuole
+    const vacuoleSize = 30 * vacuoleScale;
+    const vacuoleOffset = (100 - vacuoleSize) / 2;
+    const vacuole = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "circle",
+    );
+    vacuole.setAttribute("cx", "50");
+    vacuole.setAttribute("cy", "50");
+    vacuole.setAttribute("r", vacuoleSize / 2);
+    vacuole.setAttribute("fill", "#BFDBFE");
+    vacuole.setAttribute("opacity", "0.6");
+    svg.appendChild(vacuole);
+
+    // Nucleus
+    const nucleus = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "circle",
+    );
+    nucleus.setAttribute("cx", "50");
+    nucleus.setAttribute("cy", "35");
+    nucleus.setAttribute("r", "4");
+    nucleus.setAttribute("fill", "#9333EA");
+    svg.appendChild(nucleus);
+  }
+}
+
+// Update status cards
+function updateStatusCards(tonicity) {
+  // Tonicity label
+  document.getElementById("tonicityLabel").textContent = tonicity;
+
+  // Water flow
+  let waterFlowText = "Zero net movement";
+  if (tonicity === "hypertonic") {
+    waterFlowText = "Moves OUT (Down gradient)";
+  } else if (tonicity === "hypotonic") {
+    waterFlowText = "Moves IN (Down gradient)";
+  }
+  document.getElementById("waterFlow").textContent = waterFlowText;
+
+  // Cell condition
+  let cellConditionText = "Normal";
+  if (state.cellType === "animal") {
+    if (tonicity === "isotonic") cellConditionText = "Normal";
+    else if (tonicity === "hypertonic") cellConditionText = "Crenated";
+    else cellConditionText = "Haemolysed (Burst)";
+  } else {
+    if (tonicity === "isotonic") cellConditionText = "Flaccid";
+    else if (tonicity === "hypertonic") cellConditionText = "Plasmolysed";
+    else cellConditionText = "Turgid";
+  }
+  document.getElementById("cellCondition").textContent = cellConditionText;
+}
+
+// Quiz Functions
+function renderQuiz() {
+  const container = document.getElementById("quizContainer");
+
+  if (state.quizFinished) {
+    renderQuizFinished(container);
+    return;
   }
 
-  ctx.strokeStyle = "#334155";
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(padding, padding);
-  ctx.lineTo(padding, chartCanvas.height - padding);
-  ctx.lineTo(chartCanvas.width - padding, chartCanvas.height - padding);
-  ctx.stroke();
+  const q = questions[state.currentQuestionIndex];
+  container.innerHTML = `
+    <div>
+      <div class="flex justify-between items-center text-sm font-medium text-gray-400 mb-6">
+        <span>Question ${state.currentQuestionIndex + 1} of ${questions.length}</span>
+        <span>Score: ${state.score}</span>
+      </div>
+      
+      <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-8 leading-tight">
+        ${q.question}
+      </h3>
 
-  ctx.fillStyle = "#475569";
-  ctx.font = "12px sans-serif";
-  ctx.textAlign = "center";
-  ctx.fillText("Time (s)", chartCanvas.width / 2, chartCanvas.height - 20);
+      <div class="flex flex-col gap-3 mb-8" id="optionsContainer">
+        ${q.options
+          .map(
+            (opt, idx) => `
+          <button class="quiz-option-btn" data-index="${idx}">
+            <span>${opt}</span>
+            ${state.showExplanation && idx === q.correct ? "✓" : ""}
+            ${state.showExplanation && state.selectedAnswerIndex === idx && idx !== q.correct ? "✗" : ""}
+          </button>
+        `,
+          )
+          .join("")}
+      </div>
 
-  ctx.save();
-  ctx.translate(20, chartCanvas.height / 2);
-  ctx.rotate(-Math.PI / 2);
-  ctx.textAlign = "center";
-  ctx.fillText(getYAxisLabel(), 0, 0);
-  ctx.restore();
+      ${
+        state.showExplanation
+          ? `
+        <div class="quiz-explanation">
+          <p class="text-sm text-blue-900 leading-relaxed font-medium">
+            <span class="font-bold mr-1">Explanation:</span> ${q.explanation}
+          </p>
+          <button class="quiz-next-btn" id="nextBtn">
+            ${state.currentQuestionIndex < questions.length - 1 ? "Next" : "Finish"}
+          </button>
+        </div>
+      `
+          : ""
+      }
+    </div>
+  `;
 
-  ctx.textAlign = "right";
-  ctx.font = "11px sans-serif";
-  let maxValue = 100;
-  if (state.data.length > 0) {
-    maxValue = Math.max(...state.data.map((d) => d.value)) * 1.1 || 100;
-  }
-
-  for (let i = 0; i <= 10; i++) {
-    const value = (maxValue * (10 - i)) / 10;
-    const y = padding + (i * height) / 10;
-    ctx.fillStyle = "#64748b";
-    ctx.fillText(value.toFixed(0), padding - 10, y + 4);
-  }
-
-  ctx.textAlign = "center";
-  ctx.fillStyle = "#64748b";
-  for (let i = 0; i <= 10; i++) {
-    const x = padding + (i * width) / 10;
-    ctx.fillText((i * 10).toString(), x, chartCanvas.height - padding + 20);
-  }
-
-  if (state.data.length > 0) {
-    ctx.strokeStyle = "#2563eb";
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-
-    state.data.forEach((point, index) => {
-      const x = padding + (point.time / 100) * width;
-      const y =
-        chartCanvas.height - padding - (point.value / maxValue) * height;
-
-      if (index === 0) {
-        ctx.moveTo(x, y);
-      } else {
-        ctx.lineTo(x, y);
+  // Add event listeners
+  document.querySelectorAll(".quiz-option-btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      if (!state.showExplanation) {
+        const selectedIdx = parseInt(this.getAttribute("data-index"));
+        state.selectedAnswerIndex = selectedIdx;
+        state.showExplanation = true;
+        if (selectedIdx === q.correct) {
+          state.score += 1;
+        }
+        renderQuiz();
       }
     });
-    ctx.stroke();
+  });
+
+  const nextBtn = document.getElementById("nextBtn");
+  if (nextBtn) {
+    nextBtn.addEventListener("click", function () {
+      if (state.currentQuestionIndex < questions.length - 1) {
+        state.currentQuestionIndex += 1;
+        state.selectedAnswerIndex = null;
+        state.showExplanation = false;
+      } else {
+        state.quizFinished = true;
+      }
+      renderQuiz();
+    });
   }
 }
 
-updateUI();
-window.addEventListener("resize", updateUI);
+function renderQuizFinished(container) {
+  container.innerHTML = `
+    <div class="flex flex-col items-center justify-center text-center">
+      <div class="text-6xl mb-6">🏆</div>
+      <h2 class="text-3xl font-bold text-gray-900 mb-2">Quiz Complete!</h2>
+      <p class="text-lg text-gray-600 mb-8">
+        You scored <span class="font-bold text-blue-600">${state.score}</span> out of ${questions.length}.
+      </p>
+      <button id="restartBtn" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-medium transition-colors">
+        🔄 Retake Quiz
+      </button>
+    </div>
+  `;
 
-if (enterLabBtn) {
-  enterLabBtn.addEventListener("click", () => {
-    if (welcomeModal) welcomeModal.classList.add("hidden");
-    if (mainContainer) mainContainer.classList.remove("hidden");
-    updateUI();
+  document.getElementById("restartBtn").addEventListener("click", function () {
+    state.currentQuestionIndex = 0;
+    state.selectedAnswerIndex = null;
+    state.showExplanation = false;
+    state.score = 0;
+    state.quizFinished = false;
+    renderQuiz();
   });
 }
