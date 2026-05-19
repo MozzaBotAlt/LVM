@@ -5,123 +5,516 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="/style.css">
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --oxygenated: #dc2626;
+    --deoxygenated: #0284c7;
+    --bg-light: #eef7ff;
+    --bg-white: #ffffff;
+    --text-dark: #0f172a;
+    --text-light: #475569;
+    --border: rgba(148, 163, 184, 0.18);
+  }
+
+  body {
+    background: linear-gradient(135deg, #f8fbff 0%, #eef2ff 100%);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 24px 28px;
+    box-shadow: 0 24px 50px rgba(15, 23, 42, 0.08);
+    margin-bottom: 24px;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .header-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    display: grid;
+    place-items: center;
+    background: #eff6ff;
+    color: var(--oxygenated);
+    font-size: 28px;
+  }
+
+  .app-title {
+    font-size: 1.95rem;
+    font-weight: 800;
+    margin: 0;
+  }
+
+  .app-subtitle {
+    margin-top: 4px;
+    color: var(--text-light);
+  }
+
+  .header-right {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .main-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 24px;
+  }
+
+  .sidebar,
+  .workspace {
+    display: grid;
+    gap: 22px;
+  }
+
+  .panel {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 22px;
+    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.06);
+  }
+
+  .panel-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: var(--text-dark);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+  }
+
+  .legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+  }
+
+  .legend-dot.oxygen { background: var(--oxygenated); }
+  .legend-dot.deoxygenated { background: var(--deoxygenated); }
+  .legend-dot.heart { background: #f472b6; }
+
+  .button-group {
+    display: grid;
+    gap: 14px;
+  }
+
+  .btn,
+  .btn-secondary,
+  .btn-primary,
+  .btn-outline {
+    border-radius: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  }
+
+  .btn {
+    padding: 12px 18px;
+    background: var(--primary);
+    color: white;
+    font-weight: 700;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px rgba(37, 99, 235, 0.18);
+  }
+
+  .btn-secondary {
+    padding: 11px 16px;
+    background: #f8fafc;
+    color: var(--text-dark);
+    border: 1px solid rgba(148, 163, 184, 0.28);
+  }
+
+  .btn-secondary:hover {
+    background: #eef2ff;
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 2px solid rgba(37, 99, 235, 0.15);
+    color: var(--text-dark);
+    padding: 14px 18px;
+    font-weight: 700;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--primary);
+    background: rgba(37, 99, 235, 0.08);
+  }
+
+  .btn-small {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    background: #ffffff;
+    color: var(--text-dark);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+  }
+
+  .pulse-controls {
+    display: grid;
+    gap: 16px;
+  }
+
+  .range-label {
+    font-weight: 600;
+    color: var(--text-dark);
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .range-label span {
+    background: var(--primary);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  input[type='range'] {
+    width: 100%;
+    accent-color: var(--primary);
+    height: 8px;
+    border-radius: 999px;
+  }
+
+  input[type='range']::-webkit-slider-runnable-track {
+    height: 8px;
+    border-radius: 999px;
+    background: #dbeafe;
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--primary);
+    margin-top: -6px;
+  }
+
+  input[type='range']::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--primary);
+  }
+
+  .diagram-panel {
+    display: grid;
+    gap: 18px;
+  }
+
+  .diagram-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    background: #ffffff;
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 22px;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  .diagram-status {
+    font-weight: 800;
+  }
+
+  .diagram-note {
+    color: var(--text-light);
+    font-size: 0.95rem;
+  }
+
+  .diagram-container {
+    border-radius: 28px;
+    overflow: hidden;
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    background: linear-gradient(180deg, #f8fbff 0%, #eef2ff 100%);
+  }
+
+  .path-highlight,
+  .path-highlight path {
+    stroke-width: 18 !important;
+    stroke-opacity: 1 !important;
+    filter: drop-shadow(0 0 12px rgba(37, 99, 235, 0.25));
+  }
+
+  .path-fade,
+  .path-fade path {
+    stroke-opacity: 0.25 !important;
+  }
+
+  .interactive-element:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+  }
+
+  .highlight-info strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: var(--text-dark);
+  }
+
+  .highlight-info p {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--text-light);
+  }
+
+  .circulation-svg {
+    width: 100%;
+    display: block;
+  }
+
+  .info-panel {
+    display: grid;
+    gap: 18px;
+  }
+
+  .highlight-info {
+    color: var(--text-dark);
+    line-height: 1.8;
+    font-size: 0.97rem;
+  }
+
+  .small-cards {
+    display: grid;
+    gap: 14px;
+  }
+
+  .small-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    align-items: center;
+    padding: 18px;
+    border-radius: 22px;
+    background: #ffffff;
+    border: 1px solid rgba(148, 163, 184, 0.14);
+  }
+
+  .card-icon {
+    font-size: 28px;
+  }
+
+  .oxygen-card {
+    border-color: rgba(220, 38, 38, 0.16);
+  }
+
+  .deoxygenated-card {
+    border-color: rgba(2, 132, 199, 0.16);
+  }
+
+  @media (max-width: 980px) {
+    .main-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .header {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .diagram-meta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .container {
+      padding: 18px 14px 32px;
+    }
+
+    .panel,
+    .diagram-meta,
+    .small-card {
+      padding: 18px;
+    }
+  }
+</style>
 <link rel="shortcut icon" href="/image/images.webp" type="image/x-icon">
 <title>Blood Circulation Simulator</title>
 
 </head>
 <body>
-<div class="simulator-container">
-    <!-- Header -->
-    <header class="sim-header">
-    <button class="btn" onclick="window.location.href='../index.html'">← Back</button>
-    <h1>LVM Blood Circulation Simulator</h1>
-    <div class="header-info">
-        <span id="pulseRate">Pulse: 72 bpm</span>
+  <div id="welcomeModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="header-icon">❤️</div>
+        <h1>Blood Circulation Lab</h1>
+        <p>Visualize oxygenated and deoxygenated loops using a diagram-first simulator.</p>
+      </div>
+      <button id="enterLabBtn" class="btn btn-primary">Enter the Heart Lab</button>
     </div>
+  </div>
+
+  <div class="container hidden" id="mainContainer">
+    <header class="header">
+      <div class="header-left">
+        <div class="header-icon">🩸</div>
+        <div>
+          <h1 class="app-title">Blood Circulation Simulator</h1>
+          <p class="app-subtitle">C9 Biology — Heart & Vessels</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="btn btn-secondary btn-small" onclick="window.location.href='../index.html'">← Back to Biology</button>
+      </div>
     </header>
 
-    <div class="sim-content">
-    
-        <!-- Main Diagram -->
-    <div class="diagram-container">
-        <svg id="circulationDiagram" viewBox="0 0 800 600" class="circulation-svg">
+      <aside class="sidebar">
+        <section class="panel">
+          <h2 class="panel-title">Flow Key</h2>
+          <div class="legend-item">
+            <span class="legend-dot oxygen"></span>
+            <span>Oxygenated blood</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot deoxygenated"></span>
+            <span>Deoxygenated blood</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot heart"></span>
+            <span>Heart chambers</span>
+          </div>
+        </section>
 
-        <!-- Background -->
-        <rect width="800" height="600" fill="#f8fbff" />
+        <section class="panel">
+          <h2 class="panel-title">Quick Actions</h2>
+          <div class="button-group">
+            <button class="btn btn-outline" onclick="highlightPath('oxygenated')">Trace O₂ Path</button>
+            <button class="btn btn-outline" onclick="highlightPath('deoxygenated')">Trace CO₂ Path</button>
+            <button class="btn btn-outline" onclick="clickElement('heart')">Inspect Heart</button>
+          </div>
+        </section>
 
-        <!-- Pressure labels -->
-        <text x="200" y="90" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">High Pressure</text>
-        <text x="600" y="90" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">Low Pressure</text>
-        <text x="200" y="520" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">Lowest Pressure</text>
-        <text x="600" y="520" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">Highest Pressure</text>
+        <section class="panel">
+          <h2 class="panel-title">Pulse Control</h2>
+          <div class="pulse-controls">
+            <label class="range-label">
+              Heart Rate
+              <span id="pulseValue">72 bpm</span>
+            </label>
+            <input type="range" id="pulseSlider" min="40" max="160" value="72">
+          </div>
+        </section>
+      </aside>
 
-        <!-- Heart and vessel structure -->
-        <g id="heart" class="interactive-element" onclick="clickElement('heart')">
-            <path d="M400 310 C 360 210 260 220 280 330 C 300 430 400 520 400 520 C 400 520 500 430 520 330 C 540 220 440 210 400 310 Z" fill="#fed7e2" stroke="#c026d3" stroke-width="4" />
-            <path d="M400 340 C 385 300 340 290 320 330" fill="none" stroke="#be185d" stroke-width="5" />
-            <path d="M400 340 C 415 300 460 290 480 330" fill="none" stroke="#be185d" stroke-width="5" />
-            <text x="400" y="380" text-anchor="middle" font-size="50">❤️</text>
-            <text x="400" y="450" text-anchor="middle" font-size="18" fill="#831843" font-weight="700">The Heart</text>
-        </g>
+      <main class="workspace">
+        <div class="diagram-panel">
+          <div class="diagram-meta">
+            <div class="diagram-status">Pulse: <strong id="pulseRate">72 bpm</strong></div>
+            <div class="diagram-note">Tap a path or the heart to reveal the loop.</div>
+          </div>
 
-        <!-- Arterial and venous loops -->
-        <path id="path-lungs-heart" d="M 220 130 C 220 260 240 340 320 360" stroke="#dc2626" stroke-width="14" fill="none" marker-end="url(#arrowRed)" />
-        <path id="path-heart-body" d="M 480 360 C 560 340 600 260 600 180" stroke="#dc2626" stroke-width="14" fill="none" marker-end="url(#arrowRed)" />
-        <path id="path-body-heart" d="M 600 220 C 600 320 570 390 500 420" stroke="#0284c7" stroke-width="14" fill="none" marker-end="url(#arrowBlue)" />
-        <path id="path-heart-lungs" d="M 320 420 C 260 400 220 340 220 240" stroke="#0284c7" stroke-width="14" fill="none" marker-end="url(#arrowBlue)" />
+          <div class="diagram-container">
+            <svg id="circulationDiagram" viewBox="0 0 800 600" class="circulation-svg">
+              <rect width="800" height="600" fill="#eef7ff" rx="24" />
 
-        <!-- Vessel labels -->
-        <text x="600" y="150" text-anchor="middle" font-size="16" fill="#dc2626">Aorta</text>
-        <text x="600" y="170" text-anchor="middle" font-size="12" fill="#475569">High pressure outflow</text>
-        <text x="200" y="150" text-anchor="middle" font-size="16" fill="#0284c7">Vena Cava</text>
-        <text x="200" y="170" text-anchor="middle" font-size="12" fill="#475569">Low pressure return</text>
-        <text x="600" y="470" text-anchor="middle" font-size="16" fill="#dc2626">Systemic arteries</text>
-        <text x="600" y="490" text-anchor="middle" font-size="12" fill="#475569">Highest pressure zone</text>
-        <text x="200" y="470" text-anchor="middle" font-size="16" fill="#0284c7">Pulmonary veins</text>
-        <text x="200" y="490" text-anchor="middle" font-size="12" fill="#475569">Lowest pressure zone</text>
+              <text x="220" y="90" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">High Pressure</text>
+              <text x="600" y="90" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">Low Pressure</text>
+              <text x="220" y="520" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">Lowest Pressure</text>
+              <text x="600" y="520" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">Highest Pressure</text>
 
-        <!-- Arrow markers -->
-        <defs>
-            <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-                <path d="M0,0 L0,6 L9,3 z" fill="#dc2626" />
-            </marker>
-            <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-                <path d="M0,0 L0,6 L9,3 z" fill="#0284c7" />
-            </marker>
-        </defs>
+              <g id="heart" class="interactive-element" onclick="clickElement('heart')">
+                <path d="M400 310 C 360 210 260 220 280 330 C 300 430 400 520 400 520 C 400 520 500 430 520 330 C 540 220 440 210 400 310 Z" fill="#fed7e2" stroke="#c026d3" stroke-width="4" />
+                <path d="M400 340 C 385 300 340 290 320 330" fill="none" stroke="#be185d" stroke-width="5" />
+                <path d="M400 340 C 415 300 460 290 480 330" fill="none" stroke="#be185d" stroke-width="5" />
+                <text x="400" y="380" text-anchor="middle" font-size="52">❤️</text>
+                <text x="400" y="450" text-anchor="middle" font-size="18" fill="#831843" font-weight="700">Heart</text>
+              </g>
 
-        <!-- Blood flow animation container -->
-        <g id="bloodCells"></g>
-        </svg>
-    </div>
+              <path id="path-lungs-heart" d="M 220 130 C 220 260 240 340 320 360" stroke="#dc2626" stroke-width="14" fill="none" marker-end="url(#arrowRed)" />
+              <path id="path-heart-body" d="M 480 360 C 560 340 600 260 600 180" stroke="#dc2626" stroke-width="14" fill="none" marker-end="url(#arrowRed)" />
+              <path id="path-body-heart" d="M 600 220 C 600 320 570 390 500 420" stroke="#0284c7" stroke-width="14" fill="none" marker-end="url(#arrowBlue)" />
+              <path id="path-heart-lungs" d="M 320 420 C 260 400 220 340 220 240" stroke="#0284c7" stroke-width="14" fill="none" marker-end="url(#arrowBlue)" />
 
-    <!-- Information Panels -->
-    <div class="info-panels">
-        <div class="panel" id="panel-oxygenated">
-        <h3>🔴 Oxygenated Blood</h3>
-        <p><strong>Rich in oxygen</strong></p>
-        <p>Carries oxygen from the lungs to all body cells</p>
-        <p><strong>Color:</strong> Bright red</p>
-        <p><strong>Route:</strong> Lungs → Heart → Body</p>
+              <text x="600" y="150" text-anchor="middle" font-size="16" fill="#dc2626">Aorta</text>
+              <text x="600" y="170" text-anchor="middle" font-size="12" fill="#475569">To body</text>
+              <text x="200" y="150" text-anchor="middle" font-size="16" fill="#0284c7">Vena Cava</text>
+              <text x="200" y="170" text-anchor="middle" font-size="12" fill="#475569">From body</text>
+              <text x="600" y="470" text-anchor="middle" font-size="16" fill="#dc2626">Systemic Arteries</text>
+              <text x="600" y="490" text-anchor="middle" font-size="12" fill="#475569">Highest pressure</text>
+              <text x="200" y="470" text-anchor="middle" font-size="16" fill="#0284c7">Pulmonary Veins</text>
+              <text x="200" y="490" text-anchor="middle" font-size="12" fill="#475569">Lowest pressure</text>
+
+              <defs>
+                <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L0,6 L9,3 z" fill="#dc2626" />
+                </marker>
+                <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L0,6 L9,3 z" fill="#0284c7" />
+                </marker>
+              </defs>
+
+              <g id="bloodCells"></g>
+            </svg>
+          </div>
         </div>
 
-        <div class="panel" id="panel-deoxygenated">
-        <h3>🔵 Deoxygenated Blood</h3>
-        <p><strong>Low in oxygen</strong></p>
-        <p>Returns from body cells to the lungs to get oxygenated</p>
-        <p><strong>Color:</strong> Dark blue/purple</p>
-        <p><strong>Route:</strong> Body → Heart → Lungs</p>
-        </div>
+        <div class="info-panel">
+          <section class="panel info-card">
+            <h2 class="panel-title">Explore the loop</h2>
+            <div id="highlightInfo" class="highlight-info">
+              Tap a path or the heart icon to reveal the flow cycle with quick visuals.
+            </div>
+          </section>
 
-        <div class="panel" id="panel-heart">
-        <h3>❤️ The Heart</h3>
-        <p><strong>4-chambered pump</strong></p>
-        <p><strong>Left side:</strong> Pumps oxygenated blood to body</p>
-        <p><strong>Right side:</strong> Pumps deoxygenated blood to lungs</p>
-        <p><strong>Role:</strong> Maintains continuous circulation</p>
+          <section class="panel small-cards">
+            <div class="small-card oxygen-card">
+              <span class="card-icon">🩸</span>
+              <div>
+                <strong>O₂ Loop</strong>
+                <p>From lungs → heart → body.</p>
+              </div>
+            </div>
+            <div class="small-card deoxygenated-card">
+              <span class="card-icon">💧</span>
+              <div>
+                <strong>CO₂ Loop</strong>
+                <p>From body → heart → lungs.</p>
+              </div>
+            </div>
+          </section>
         </div>
-    </div>
-
-    <!-- Controls -->
-    <div class="controls-section">
-        <h3>Pulse Control</h3>
-        <div class="pulse-controls">
-        <label>
-            Heart Rate:
-            <input type="range" id="pulseSlider" min="40" max="160" value="72" oninput="updatePulse(this.value)">
-            <span id="pulseValue">72 bpm</span>
-        </label>
-        </div>
-
-        <h3>Learning Modes</h3>
-        <div class="button-group">
-        <button class="btn btn-outline" onclick="highlightPath('oxygenated')">Trace Oxygenated Path</button>
-        <button class="btn btn-outline" onclick="highlightPath('deoxygenated')">Trace Deoxygenated Path</button>
-        </div>
-
-        <h3>Test Your Knowledge</h3>
-        <button class="btn btn-primary" onclick="startQuiz()">Take Quiz</button>
-    </div>
+      </main>
     </div>
 
     <!-- Quiz Modal -->
@@ -134,6 +527,21 @@
     </div>
 </div>
 
+<footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h3>About Labsim</h3>
+          <p>Interactive simulations designed for KSSM and IGCSE learners. Built to help students master science concepts with visual experiments.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Project</h3>
+          <p>GNU GPL v3.0 licensed. Previous versions on <a href="http://github.com/MozzaBotAlt/LVM">GitHub</a>.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Labsim Von MozzaBot. Developed by Long Infinity.</p>
+      </div>
+    </footer>
 <script src="./script.js" defer></script>
 <noscript><meta http-equiv="refresh" content="0; url=/error.html"/></noscript>
 </body>

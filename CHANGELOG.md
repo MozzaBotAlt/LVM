@@ -17,3 +17,5 @@ LVM-4.0.0-alpha
 ! Missing database features to get blobs.
 * Improved UI, better appearance than LVM-0.1.0.
 - Imporved background security.
+
+Hmm, banyaklah perubahan dia, let the history talks!

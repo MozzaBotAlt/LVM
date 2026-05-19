@@ -3,56 +3,408 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="Keywords" content="Labsim von MozzaBot, MozzaBot, Long Infinity, Lab Website, Education, Science, Innovation, Simulator">
+    <meta name="Keywords" content="Labsim von MozzaBot, Help, Tutorial, Manual, FAQ, Guides">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../style.css">
-    <title>Labsim Help Page</title>
+    <title>Help & Guides - Labsim Von MozzaBot</title>
     <link rel="icon" href="/multimedia/image/images.webp" type="image/x-icon">
+    <style>
+        .help-section {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(0, 255, 247, 0.14);
+            border-radius: 20px;
+            padding: 28px;
+            margin: 24px 0;
+            transition: all 0.3s ease;
+        }
+        .help-section:hover {
+            border-color: rgba(0, 255, 247, 0.25);
+            box-shadow: 0 12px 32px rgba(0, 255, 247, 0.08);
+        }
+        .help-section h3 {
+            color: #80d8ff;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.2rem;
+        }
+        .help-section i {
+            font-size: 1.3rem;
+        }
+        .help-section p, .help-section li {
+            color: #c9e9ff;
+            line-height: 1.8;
+        }
+        .help-section ul {
+            margin: 16px 0;
+            padding-left: 20px;
+        }
+        .help-section li {
+            margin: 10px 0;
+        }
+        .step-box {
+            background: rgba(0, 255, 247, 0.08);
+            border-left: 4px solid #80d8ff;
+            padding: 16px;
+            margin: 12px 0;
+            border-radius: 8px;
+        }
+        .step-box strong {
+            color: #80d8ff;
+        }
+        .faq-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 12px 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .faq-item:hover {
+            background: rgba(0, 255, 247, 0.06);
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #80d8ff;
+            font-weight: 600;
+        }
+        .faq-answer {
+            display: none;
+            color: #c9e9ff;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0, 255, 247, 0.12);
+            line-height: 1.8;
+        }
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-item {
+            background: rgba(0, 255, 247, 0.05);
+            border: 1px solid rgba(0, 255, 247, 0.12);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+        .feature-item i {
+            font-size: 2rem;
+            color: #80d8ff;
+            margin-bottom: 12px;
+        }
+        .feature-item h4 {
+            color: #80d8ff;
+            margin: 8px 0;
+        }
+        .feature-item p {
+            font-size: 0.95rem;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="box">
-            <i style="margin: 10px 10px 10px;" class="fa-solid fa-house"></i>
-            <button style="margin: 10px 10px 10px;" class="btn" onclick="window.location.href='../index.html'">Home</button>
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="header-brand">
+          <a href="/index.html" class="brand-logo">
+            <span class="brand-mark"><img src="/multimedia/image/images.webp" alt="" srcset=""></span>
+            <div>
+              <h1>Manual and Guides/h1>
+            </div>
+          </a>
         </div>
-        <hr>
-        <div class="card">
-        <div class="p">
-          <i class="fa-solid fa-book"></i>
-          <h3>Video Reference</h3>
-          <p>These are the video references.</p>
-          <button class="btn" onclick="window.location.href='./video/index.html'">Videos</button>
-        </div>
-        </div>
-    </div>
 
-    <script src="script.js" defer></script>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a class="nav-link" href="./About/index.html">About</a>
+          <a class="nav-link" href="./labsim/index.html">Labsim</a>
+          <a class="nav-link" href="./help/index.html">Help</a>
+          <a class="nav-link" href="./contact/index.html">Contact</a>
+        </nav>
+      </div>
+    </header>
 
-    <hr>
+    <!-- Main Content -->
+    <main class="container" role="main">
+        <div class="contact-actions" style="margin-bottom: 30px;">
+            <button class="btn" onclick="window.location.href='../index.html'">
+                <i class="fa-solid fa-house"></i> Back to Home
+            </button>
+            <button class="btn" onclick="window.location.href='./video/index.html'" style="margin-left: 12px;">
+                <i class="fa-solid fa-video"></i> Video Tutorials
+            </button>
+        </div>
+
+        <!-- Getting Started Section -->
+        <section class="help-section">
+            <h3><i class="fa-solid fa-play-circle"></i> Getting Started</h3>
+            <p>Welcome to Labsim Von MozzaBot! Follow these simple steps to begin your learning journey:</p>
+            
+            <div class="step-box">
+                <strong>Step 1: Explore Available Modules</strong><br>
+                Visit the Labsim section to see all available simulations in Biology, Chemistry, and Physics. Each module covers specific topics from the KSSM and IGCSE curriculum.
+            </div>
+            
+            <div class="step-box">
+                <strong>Step 2: Select Your Module</strong><br>
+                Choose a simulation that matches your current learning topic. Click on the module card to access it.
+            </div>
+            
+            <div class="step-box">
+                <strong>Step 3: Read Instructions</strong><br>
+                Each simulation includes detailed instructions on how to conduct the virtual experiment. Take time to understand the objectives and safety considerations.
+            </div>
+            
+            <div class="step-box">
+                <strong>Step 4: Conduct the Experiment</strong><br>
+                Follow the on-screen prompts to manipulate variables and observe real-time results. Take notes on your observations.
+            </div>
+            
+            <div class="step-box">
+                <strong>Step 5: Analyze Results</strong><br>
+                Review the data generated by your experiment. Compare with expected outcomes and formulate conclusions.
+            </div>
+        </section>
+
+        <!-- Module Guides Section -->
+        <section class="help-section">
+            <h3><i class="fa-solid fa-flask"></i> Module Guides</h3>
+            
+            <h4 style="color: #a8e6e6; margin-top: 20px;">Biology Simulations</h4>
+            <p>Our Biology modules cover topics from the IGCSE 2026 syllabus including:</p>
+            <ul>
+                <li><strong>Cells & Organization:</strong> Explore cell structures and functions through interactive microscopy</li>
+                <li><strong>Organism Transport:</strong> Understand gas exchange and nutrient transport in living systems</li>
+                <li><strong>Ecosystems:</strong> Study food chains, energy flow, and biodiversity</li>
+                <li><strong>Inheritance:</strong> Learn about genetic patterns and DNA</li>
+            </ul>
+
+            <h4 style="color: #a8e6e6; margin-top: 20px;">Chemistry Simulations</h4>
+            <p>Our Chemistry modules include:</p>
+            <ul>
+                <li><strong>Atomic Structure:</strong> Visualize electrons, protons, and neutrons</li>
+                <li><strong>Chemical Reactions:</strong> Observe reaction rates and energy changes</li>
+                <li><strong>Solutions:</strong> Conduct titrations and concentration calculations</li>
+                <li><strong>Periodic Table:</strong> Explore element properties and reactivity</li>
+            </ul>
+
+            <h4 style="color: #a8e6e6; margin-top: 20px;">Physics Simulations</h4>
+            <p>Our Physics modules cover:</p>
+            <ul>
+                <li><strong>Forces & Motion:</strong> Understand Newton's laws through interactive demonstrations</li>
+                <li><strong>Energy:</strong> Explore kinetic, potential, and thermal energy</li>
+                <li><strong>Waves:</strong> Study properties of light and sound</li>
+                <li><strong>Electricity:</strong> Build circuits and measure current and voltage</li>
+            </ul>
+        </section>
+
+        <!-- Features Overview -->
+        <section class="help-section">
+            <h3><i class="fa-solid fa-sparkles"></i> Key Features</h3>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fa-solid fa-mouse"></i>
+                    <h4>Interactive Controls</h4>
+                    <p>Easy-to-use interfaces with real-time manipulation of variables</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <h4>Real-time Data</h4>
+                    <p>Instant visualization of results and automatic data logging</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-mobile"></i>
+                    <h4>Multi-Platform</h4>
+                    <p>Access from any device - desktop, tablet, or mobile</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-book"></i>
+                    <h4>Curriculum-Aligned</h4>
+                    <p>Based on official KSSM and IGCSE syllabi</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-lock-open"></i>
+                    <h4>Free & Open Source</h4>
+                    <p>Licensed under GNU GPL v3.0 - completely free to use</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <h4>Teacher Friendly</h4>
+                    <p>Perfect for classroom demonstrations and lab substitutes</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Frequently Asked Questions -->
+        <section class="help-section">
+            <h3><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions</h3>
+            
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">
+                    <span>Do I need to install anything to use Labsim?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    No! Labsim Von MozzaBot is completely web-based. Simply open your web browser and access the platform. No downloads or installations required.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">
+                    <span>Is my data saved?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    You can download your experiment results as CSV files for further analysis. We recommend saving your work regularly to avoid losing data.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">
+                    <span>Can I use Labsim offline?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Most modules require an internet connection. However, you can download certain resources for offline study. Check each module for offline availability.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">
+                    <span>Is it compatible with my device?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Labsim works on most modern browsers including Chrome, Firefox, Safari, and Edge. We recommend using the latest browser version for the best experience.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">
+                    <span>How accurate are the simulations?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Our simulations are based on real scientific data and peer-reviewed research. They accurately represent laboratory conditions and real-world experiments.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">
+                    <span>Can I repeat experiments?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Yes! You can repeat any experiment as many times as you want. This helps reinforce understanding and test different hypotheses.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">
+                    <span>Is there any cost involved?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Labsim Von MozzaBot is completely free to use! It's an open-source project developed to make science education more accessible.
+                </div>
+            </div>
+        </section>
+
+        <!-- Troubleshooting Section -->
+        <section class="help-section">
+            <h3><i class="fa-solid fa-wrench"></i> Troubleshooting</h3>
+            
+            <h4 style="color: #a8e6e6; margin-top: 20px;">Simulation Won't Load</h4>
+            <ul>
+                <li>Check your internet connection</li>
+                <li>Try refreshing the page (F5 or Ctrl+R)</li>
+                <li>Clear your browser cache and cookies</li>
+                <li>Try a different browser or incognito mode</li>
+                <li>Ensure JavaScript is enabled in your browser</li>
+            </ul>
+
+            <h4 style="color: #a8e6e6; margin-top: 20px;">Poor Performance or Slow Simulation</h4>
+            <ul>
+                <li>Close other browser tabs and applications</li>
+                <li>Reduce graphics quality if available</li>
+                <li>Disable browser extensions</li>
+                <li>Try on a device with better performance</li>
+                <li>Check your internet speed</li>
+            </ul>
+
+            <h4 style="color: #a8e6e6; margin-top: 20px;">Controls Not Responding</h4>
+            <ul>
+                <li>Click on the simulation window to focus it</li>
+                <li>Try using the keyboard instead of mouse if available</li>
+                <li>Reload the page</li>
+                <li>Check that you're not in fullscreen mode</li>
+                <li>Try on a different device</li>
+            </ul>
+
+            <h4 style="color: #a8e6e6; margin-top: 20px;">Data Download Issues</h4>
+            <ul>
+                <li>Check browser download settings</li>
+                <li>Ensure you have sufficient disk space</li>
+                <li>Try a different browser</li>
+                <li>Disable ad blockers as they may interfere</li>
+                <li>Check firewall or antivirus settings</li>
+            </ul>
+        </section>
+
+        <!-- Contact Support Section -->
+        <section class="help-section">
+            <h3><i class="fa-solid fa-headset"></i> Need More Help?</h3>
+            <p>If you couldn't find the answer to your question, we're here to help!</p>
+            <ul>
+                <li><strong>Email:</strong> <a href="mailto:231046@langkawi.mrsm.edu.my">231046@langkawi.mrsm.edu.my</a></li>
+                <li><strong>GitHub Issues:</strong> Report bugs or request features on <a href="https://github.com/MozzaBotAlt/LVM/issues" target="_blank">our GitHub repository</a></li>
+                <li><strong>Video Tutorials:</strong> Check out our <button class="btn" onclick="window.location.href='./video/index.html'" style="display: inline; padding: 6px 12px; font-size: 0.9rem;">video guides</button></li>
+            </ul>
+        </section>
+
+    </main>
+
+    <script>
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+    </script>
+
     <noscript><meta http-equiv="refresh" content="0;url=/error.html"></noscript>
+    
     <footer class="site-footer">
-      <div class="footer-inner">
-        <div class="footer-col">
-          <h3>About Labsim</h3>
-          <p>Interactive simulations designed for KSSM and IGCSE learners. Built to help students master science concepts with visual experiments.</p>
+        <div class="footer-inner">
+            <div class="footer-col">
+                <h3>About Labsim</h3>
+                <p>Interactive simulations designed for KSSM and IGCSE learners. Built to help students master science concepts with visual experiments.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick links</h3>
+                <ul>
+                    <li><a href="../About/index.html">About</a></li>
+                    <li><a href="../labsim/index.html">Labsim</a></li>
+                    <li><a href="./index.html">Help</a></li>
+                    <li><a href="../contact/index.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Project</h3>
+                <p>GNU GPL v3.0 licensed. Previous versions on <a href="http://github.com/MozzaBotAlt/LVM">GitHub</a>.</p>
+            </div>
         </div>
-        <div class="footer-col">
-          <h3>Quick links</h3>
-          <ul>
-            <li><a href="./About/index.html">About</a></li>
-            <li><a href="./labsim/index.html">Labsim</a></li>
-            <li><a href="./help/index.html">Help</a></li>
-            <li><a href="./contact/index.html">Contact</a></li>
-          </ul>
+        <div class="footer-bottom">
+            <p>© 2025 Labsim Von MozzaBot. Developed by Long Infinity.</p>
         </div>
-        <div class="footer-col">
-          <h3>Project</h3>
-          <p>GNU GPL v3.0 licensed. Previous versions on <a href="http://github.com/MozzaBotAlt/LVM">GitHub</a>.</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2025 Labsim Von MozzaBot. Developed by Long Infinity.</p>
-      </div>
     </footer>
 </body>
 </html>

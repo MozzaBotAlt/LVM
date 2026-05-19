@@ -169,32 +169,139 @@ button:disabled,
 
 /* Header */
 .site-header {
-  color:#9feeee;
-  opacity: 0.75;
-  border-bottom: 1px solid rgba(128, 216, 255, 0.12);
-  margin-bottom: auto;
-  text-align: center;
-  padding: 24px 0 8px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(6, 18, 37, 0.96);
+  border-bottom: 1px solid rgba(128, 216, 255, 0.14);
+  backdrop-filter: blur(16px);
+  padding: 18px 0;
 }
 .header-inner {
   max-width: 1130px;
   margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
 }
-.tagline {
-  color: #a5d8ff;
-  margin-top: 8px;
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+}
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  background: rgba(0, 255, 247, 0.18);
+  color: #00fff7;
+  font-size: 1.4rem;
+}
+.brand-logo h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2vw, 2.1rem);
+  color: #e8f5ff;
+}
+.brand-logo .tagline {
+  margin: 0;
+  color: #9feeee;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.site-nav {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.nav-link {
+  color: #c9e9ff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 999px;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.nav-link:hover,
+.nav-link:focus {
+  background: rgba(128, 216, 255, 0.14);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.site-footer {
+  background: rgba(6, 18, 37, 0.97);
+  border-top: 1px solid rgba(128, 216, 255, 0.14);
+  padding: 40px 20px 28px;
+  color: #c9e9ff;
+  margin-top: 40px;
+}
+.footer-inner {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  max-width: 1130px;
+  margin: 0 auto;
+  align-items: start;
+}
+.footer-col h3 {
+  margin-bottom: 14px;
+  font-size: 1rem;
+  color: #ffffff;
+}
+.footer-col p,
+.footer-col li {
+  color: #aecde1;
+  line-height: 1.8;
+}
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+.footer-col a {
+  color: #80d8ff;
+  text-decoration: none;
+}
+.footer-col a:hover {
+  text-decoration: underline;
+}
+.footer-bottom {
+  max-width: 1130px;
+  margin: 24px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(128, 216, 255, 0.12);
+  text-align: center;
+  color: #9feeee;
   font-size: 0.95rem;
 }
-.site-footer {
-  text-align: center;
-  padding: 18px 8px;
-  color: black;
-  opacity: 0.95;
-  border-top: 1px solid rgba(128, 216, 255, 0.12);
-  margin-top: 32px;
+
+@media (max-width: 900px) {
+  .header-inner,
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .site-nav {
+    justify-content: flex-start;
+    width: 100%;
+  }
 }
-.text-inner {
-  color: white;
+
+@media (max-width: 700px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Navigation */
@@ -591,6 +698,7 @@ li {
 
       .scroll-card {
         min-width: 280px;
+        max-width: 400px;
         flex: 0 0 auto;
         background: rgba(4, 17, 42, 0.95);
         border: 1px solid rgba(0, 255, 247, 0.12);
@@ -608,6 +716,7 @@ li {
       .scroll-card p {
         color: #cfefff;
         line-height: 1.75;
+        max-width: 320px;
         font-size: 0.96rem;
       }
 
@@ -656,3 +765,105 @@ li {
           min-width: 240px;
         }
       }
+
+/* Stars */
+.checked {
+  color: orange;
+}
+
+.review-stars {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 40px; /* Adjust size here */
+  }
+  .star.filled {
+    color: #ffc107; /* Gold color */
+  }
+  .star.unfilled {
+    color: #e4e5e9; /* Light gray color */
+  }
+  .rating-text {
+    font-size: 16px;
+    margin-left: 10px;
+    font-family: sans-serif;
+  }
+
+.average-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 24px; /* Adjust size here */
+    margin-top: 12px;
+  }
+  .average-rating .star {
+    color: #ffc107; /* Gold color */
+  }
+
+/* Enhanced Scroll Card Styling */
+.scroll-card {
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: linear-gradient(135deg, rgba(4, 17, 42, 0.98) 0%, rgba(12, 30, 62, 0.95) 100%);
+  border: 1px solid rgba(0, 255, 247, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.scroll-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  border-color: rgba(0, 255, 247, 0.25);
+  box-shadow: 0 16px 48px rgba(0, 255, 247, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: linear-gradient(135deg, rgba(4, 17, 42, 0.99) 0%, rgba(20, 50, 90, 0.98) 100%);
+}
+
+.scroll-card .badge {
+  background: linear-gradient(135deg, rgba(0, 255, 247, 0.16), rgba(128, 216, 255, 0.08));
+  border: 1px solid rgba(0, 255, 247, 0.2);
+  transition: all 0.2s ease;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.scroll-card:hover .badge {
+  background: linear-gradient(135deg, rgba(0, 255, 247, 0.22), rgba(128, 216, 255, 0.12));
+  border-color: rgba(0, 255, 247, 0.35);
+  color: #ffffff;
+}
+
+.scroll-card h3 {
+  transition: color 0.2s ease;
+  margin-bottom: 8px;
+}
+
+.scroll-card:hover h3 {
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(128, 216, 255, 0.4);
+}
+
+.scroll-card p {
+  transition: color 0.2s ease;
+}
+
+.scroll-card:hover p {
+  color: #e8f5ff;
+}
+
+.scroll-card button {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.scroll-card:hover button {
+  transform: translateX(2px);
+}
+
+@media (max-width: 480px) {
+  .scroll-card {
+    min-width: 200px;
+    max-width: 280px;
+  }
+}

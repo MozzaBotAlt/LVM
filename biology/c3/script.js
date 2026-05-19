@@ -173,6 +173,7 @@ function updateSimulation() {
 
   // Update status cards
   updateStatusCards(tonicity);
+  updateTonicityStyles(tonicity);
 }
 
 // Render SVG Cell
@@ -295,6 +296,26 @@ function updateStatusCards(tonicity) {
   document.getElementById("cellCondition").textContent = cellConditionText;
 }
 
+function updateTonicityStyles(tonicity) {
+  const indicator = document.getElementById("tonicityIndicator");
+  const wrapper = document.getElementById("cellWrapper");
+  wrapper.classList.remove("tonic-hypotonic", "tonic-isotonic", "tonic-hypertonic");
+
+  if (tonicity === "hypotonic") {
+    indicator.classList.add("text-blue-600");
+    indicator.classList.remove("text-red-600", "text-green-600");
+    wrapper.classList.add("tonic-hypotonic");
+  } else if (tonicity === "hypertonic") {
+    indicator.classList.add("text-red-600");
+    indicator.classList.remove("text-blue-600", "text-green-600");
+    wrapper.classList.add("tonic-hypertonic");
+  } else {
+    indicator.classList.add("text-green-600");
+    indicator.classList.remove("text-blue-600", "text-red-600");
+    wrapper.classList.add("tonic-isotonic");
+  }
+}
+
 // Quiz Functions
 function renderQuiz() {
   const container = document.getElementById("quizContainer");
@@ -305,25 +326,30 @@ function renderQuiz() {
   }
 
   const q = questions[state.currentQuestionIndex];
+  const progress = Math.round(((state.currentQuestionIndex + 1) / questions.length) * 100);
+
   container.innerHTML = `
     <div>
-      <div class="flex justify-between items-center text-sm font-medium text-gray-400 mb-6">
-        <span>Question ${state.currentQuestionIndex + 1} of ${questions.length}</span>
-        <span>Score: ${state.score}</span>
+      <div class="quiz-progress">
+        <div class="quiz-progress-label">
+          <span>Question ${state.currentQuestionIndex + 1} of ${questions.length}</span>
+          <span>Score: ${state.score}</span>
+        </div>
+        <div class="quiz-progress-bar"><div style="width:${progress}%"></div></div>
       </div>
-      
-      <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-8 leading-tight">
-        ${q.question}
-      </h3>
 
-      <div class="flex flex-col gap-3 mb-8" id="optionsContainer">
+      <h3 class="quiz-question-title">${q.question}</h3>
+
+      <div class="options-list" id="optionsContainer">
         ${q.options
           .map(
             (opt, idx) => `
-          <button class="quiz-option-btn" data-index="${idx}">
-            <span>${opt}</span>
-            ${state.showExplanation && idx === q.correct ? "✓" : ""}
-            ${state.showExplanation && state.selectedAnswerIndex === idx && idx !== q.correct ? "✗" : ""}
+          <button class="quiz-option-btn
+            ${state.showExplanation && idx === q.correct ? " correct" : ""}
+            ${state.showExplanation && state.selectedAnswerIndex === idx && idx !== q.correct ? " wrong" : ""}"
+            data-index="${idx}"
+            ${state.showExplanation ? "disabled" : ""}>
+            ${opt}
           </button>
         `,
           )
@@ -334,8 +360,8 @@ function renderQuiz() {
         state.showExplanation
           ? `
         <div class="quiz-explanation">
-          <p class="text-sm text-blue-900 leading-relaxed font-medium">
-            <span class="font-bold mr-1">Explanation:</span> ${q.explanation}
+          <p class="quiz-explanation-text">
+            <span class="quiz-explanation-label">Explanation:</span> ${q.explanation}
           </p>
           <button class="quiz-next-btn" id="nextBtn">
             ${state.currentQuestionIndex < questions.length - 1 ? "Next" : "Finish"}

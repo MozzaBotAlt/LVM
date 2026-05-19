@@ -10,14 +10,26 @@
     <link rel="icon" href="/multimedia/image/images.webp" type="image/x-icon">
 </head>
 <body>
-  <header class="site-header">
+    <header class="site-header">
       <div class="header-inner">
-        <h1>Connect with Us</h1>
-        <p class="tagline">
-          Contact us for any inquiries or support.
-        </p>
+        <div class="header-brand">
+          <a href="/index.html" class="brand-logo">
+            <span class="brand-mark"><img src="/multimedia/image/images.webp" alt="" srcset=""></span>
+            <div>
+              <h1>Support Page</h1>
+            </div>
+          </a>
+        </div>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a class="nav-link" href="./About/index.html">About</a>
+          <a class="nav-link" href="./labsim/index.html">Labsim</a>
+          <a class="nav-link" href="./help/index.html">Help</a>
+          <a class="nav-link" href="./contact/index.html">Contact</a>
+        </nav>
       </div>
     </header>
+
     <div class="container">
       <div class="contact-actions">
         <button style="margin-bottom:10px; margin-top: 10px;" class="btn" onclick="window.location.href='/index.html'">Home</button>
@@ -62,27 +74,26 @@
     </div><br>
 
     <div class="scroll-panel">
-      <h2 style="align-self: center;">What the students say.</h2>
-        <div class="scroll-ticker">
-          <article class="scroll-card">
-            <article class="scroll-card">
+      <h2 style="text-align: center; margin-bottom: 24px;">Help Us Improve</h2>
+      <div class="scroll-ticker">
+        <article class="scroll-card">
           <span class="badge">Survey</span>
-          <h3>Take our survey</h3>
-        <button onclick="window.location.href='survey.html'">Take Survey</button>
-        <p>Complete out feedback surveys to help us improve Labsim Von MozzaBot. Your feedback is valuable!</p>
-          </article>
-          <article class="scroll-card">
-              <span class="badge">Pilot-Test</span>
-              <h3>Take our Pre-Test</h3>
-              <button onclick="window.location.href='pretest.html'">Take Pre-Test</button>
-              <p>Complete the pre-test surveys to help us improve Labsim Von MozzaBot. Your feedback is valuable!</p>
-          </article>
-          <article class="scroll-card">
-              <h3>Take our Post-Test</h3>
-              <button onclick="window.location.href='posttest.html'">Take Post-Test</button>
-              <p>Complete the post-test surveys to help us improve Labsim Von MozzaBot. Your feedback is valuable!</p>
-          </article>
-        </div>
+          <h3>Student Feedback Survey</h3>
+          <p>Share your experience using Labsim Von MozzaBot. Your feedback helps us create better learning tools.</p>
+          <button onclick="window.location.href='survey.html'" style="margin-top: 12px;">Take Survey</button>
+        </article>
+        <article class="scroll-card">
+          <span class="badge">Pilot-Test</span>
+          <h3>Pre-Test Assessment</h3>
+          <p>Complete our pre-test to assess your initial understanding. This helps measure your learning progress.</p>
+          <button onclick="window.location.href='pretest.html'" style="margin-top: 12px;">Start Pre-Test</button>
+        </article>
+        <article class="scroll-card">
+          <span class="badge">Post-Test</span>
+          <h3>Post-Test Evaluation</h3>
+          <p>Take the post-test after using the simulations to evaluate your knowledge improvement.</p>
+          <button onclick="window.location.href='posttest.html'" style="margin-top: 12px;">Start Post-Test</button>
+        </article>
       </div>
     </div>
 

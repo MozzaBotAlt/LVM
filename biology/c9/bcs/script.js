@@ -70,8 +70,17 @@ const quizQuestions = [
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
+  const enterLabBtn = document.getElementById('enterLabBtn');
+  if (enterLabBtn) {
+    enterLabBtn.addEventListener('click', () => {
+      document.getElementById('welcomeModal').classList.add('hidden');
+      document.getElementById('mainContainer').classList.remove('hidden');
+    });
+  }
+
   createBloodCells();
   startPulseAnimation();
+  showHighlightInfo('default');
 }
 
 // Blood Cell Animation
@@ -141,6 +150,7 @@ function updatePulse(value) {
   // Recreate blood cells with new speed
   if (window.cellIntervals) {
     window.cellIntervals.forEach(interval => clearInterval(interval));
+    window.cellIntervals = [];
   }
   document.getElementById('bloodCells').innerHTML = '';
   createBloodCells();
@@ -155,6 +165,15 @@ function togglePulse() {
   }, 500);
 }
 
+function startPulseAnimation() {
+  const pulseController = document.getElementById('pulseSlider');
+  if (!pulseController) return;
+
+  pulseController.addEventListener('input', event => {
+    updatePulse(event.target.value);
+  });
+}
+
 // Path Highlighting
 function highlightPath(pathType) {
   resetHighlight();
@@ -165,33 +184,17 @@ function highlightPath(pathType) {
   });
 
   if (pathType === 'oxygenated') {
-    // Lungs → Heart → Body
     document.getElementById('path-lungs-heart').classList.remove('path-fade');
     document.getElementById('path-lungs-heart').classList.add('path-highlight');
-
     document.getElementById('path-heart-body').classList.remove('path-fade');
     document.getElementById('path-heart-body').classList.add('path-highlight');
-
-    document.getElementById('panel-oxygenated').style.background = '#ecfdf5';
-    document.getElementById('panel-oxygenated').style.borderLeftColor = '#10b981';
-
-    setTimeout(() => {
-      alert('Oxygenated blood path:\n\n1️⃣ Blood is oxygenated in the LUNGS\n2️⃣ Travels to the HEART (left side)\n3️⃣ Heart pumps it to the BODY\n\nThis cycle provides oxygen to all cells!');
-    }, 100);
+    showHighlightInfo('oxygenated');
   } else {
-    // Body → Heart → Lungs
     document.getElementById('path-body-heart').classList.remove('path-fade');
     document.getElementById('path-body-heart').classList.add('path-highlight');
-
     document.getElementById('path-heart-lungs').classList.remove('path-fade');
     document.getElementById('path-heart-lungs').classList.add('path-highlight');
-
-    document.getElementById('panel-deoxygenated').style.background = '#ecfdf5';
-    document.getElementById('panel-deoxygenated').style.borderLeftColor = '#10b981';
-
-    setTimeout(() => {
-      alert('Deoxygenated blood path:\n\n1️⃣ Blood losing oxygen travels from BODY\n2️⃣ Returns to the HEART (right side)\n3️⃣ Heart pumps it to the LUNGS\n\nThis cycle removes waste (CO₂) and gets fresh oxygen!');
-    }, 100);
+    showHighlightInfo('deoxygenated');
   }
 }
 
@@ -209,15 +212,46 @@ function resetHighlight() {
 
 function clickElement(element) {
   if (element === 'heart') {
-    const panel = document.getElementById('panel-heart');
-    panel.style.background = '#fdf2f8';
-    panel.style.borderLeftColor = '#10b981';
-
-    setTimeout(() => {
-      alert('The Heart - A 4-Chambered Pump\n\n❤️ Upper Chambers (Atria):\n- Receive blood\n\n❤️ Lower Chambers (Ventricles):\n- Pump blood out to lungs and body\n\n⚙️ Role in Circulation:\n- Maintains constant blood flow\n- Ensures all cells get oxygen');
-      resetHighlight();
-    }, 100);
+    highlightHeart();
+    showHighlightInfo('heart');
   }
+}
+
+function highlightHeart() {
+  const heart = document.getElementById('heart');
+  if (heart) {
+    heart.classList.add('path-highlight');
+    setTimeout(() => {
+      heart.classList.remove('path-highlight');
+    }, 1400);
+  }
+}
+
+function showHighlightInfo(type) {
+  const info = document.getElementById('highlightInfo');
+  if (!info) return;
+
+  const infoMap = {
+    default: {
+      title: 'Try the interactive circuit',
+      text: 'Click the heart or select oxygenated / deoxygenated flow to reveal the path and learn how blood moves through the body.'
+    },
+    oxygenated: {
+      title: 'Oxygenated Blood Flow',
+      text: 'Blood returns from the lungs to the left side of the heart, then is pumped through the aorta into the body carrying fresh oxygen to tissues.'
+    },
+    deoxygenated: {
+      title: 'Deoxygenated Blood Flow',
+      text: 'Blood from the body returns to the right side of the heart and is sent to the lungs to release carbon dioxide and pick up oxygen.'
+    },
+    heart: {
+      title: 'Heart Function',
+      text: 'The heart acts as a dual pump. The right side sends blood to the lungs, while the left side sends oxygenated blood to the body.'
+    }
+  };
+
+  const chosen = infoMap[type] || infoMap.default;
+  info.innerHTML = `<strong>${chosen.title}</strong><p>${chosen.text}</p>`;
 }
 
 // Quiz Functions
