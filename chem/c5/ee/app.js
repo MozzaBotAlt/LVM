@@ -18,7 +18,6 @@ let energyDiagram;
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', () => {
     setupWelcomeModal();
-    init3DScene();
 });
 
 // ===== WELCOME MODAL =====
@@ -30,6 +29,7 @@ function setupWelcomeModal() {
     enterLabBtn.addEventListener('click', () => {
         welcomeModal.classList.add('hidden');
         mainContainer.classList.remove('hidden');
+        init3DScene();
         initializeUI();
         drawEnergyProfile();
     });
@@ -37,6 +37,7 @@ function setupWelcomeModal() {
 
 // ===== UI INITIALIZATION =====
 function initializeUI() {
+    energyDiagram = new EnergyDiagram('canvasEnergy');
     renderReactionList();
     setupEventListeners();
     updateDisplay();
@@ -128,7 +129,9 @@ function updateDisplay() {
     
     // Header glow
     const glow = document.getElementById('headerGlow');
-    glow.className = `header-glow ${state.selectedReaction.type}`;
+    if (glow) {
+        glow.className = `header-glow ${state.selectedReaction.type}`;
+    }
     
     // Temperature display
     document.getElementById('tempDisplay').textContent = `${Math.round(state.tempParams)} °C`;
@@ -344,19 +347,22 @@ function init3DScene() {
         renderer.setSize(newWidth, newHeight);
     });
     
-    // InupdateParticles() {
     if (particleSystem) {
         particleSystem.createFromReaction(state.selectedReaction, state.progress);
     }
 }
 
 function updateParticles() {
-    drawParticles();
+    if (particleSystem) {
+        const speedMultiplier = Math.max(0.1, 1 + (state.currentTemp - 25) * 0.05);
+        particleSystem.updateMotion(speedMultiplier);
+    }
 }
 
 function clearScene() {
-    particles.forEach(p => scene.remove(p));
-    particles = [];
+    if (particleSystem) {
+        particleSystem.clearAll();
+    }
 }
 
 // ===== ENERGY PROFILE DIAGRAM =====

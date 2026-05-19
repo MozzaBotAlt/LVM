@@ -380,16 +380,17 @@ input[type='range']::-moz-range-thumb {
 }
 
 .cell-display {
-  background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.15), transparent 35%),
-    radial-gradient(circle at 70% 80%, rgba(16, 185, 129, 0.12), transparent 32%),
-    #f8fafc;
+  background: radial-gradient(circle at 20% 25%, rgba(59, 130, 246, 0.18), transparent 32%),
+    radial-gradient(circle at 80% 75%, rgba(16, 185, 129, 0.18), transparent 28%),
+    linear-gradient(180deg, #eef2ff 0%, #ffffff 100%);
   border-radius: 32px;
-  min-height: 360px;
+  min-height: 380px;
   display: grid;
   place-items: center;
-  border: 1px dashed rgba(148, 163, 184, 0.36);
+  border: 1px solid rgba(59, 130, 246, 0.16);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
 }
 
 .cell-display::before {
@@ -409,6 +410,11 @@ input[type='range']::-moz-range-thumb {
 .cell-svg circle,
 .cell-svg rect {
   transition: transform 0.25s ease, fill 0.25s ease, stroke 0.25s ease, opacity 0.25s ease;
+  stroke-width: 3px;
+}
+
+.cell-svg rect {
+  shape-rendering: geometricPrecision;
 }
 
 .status-grid {
@@ -595,6 +601,86 @@ input[type='range']::-moz-range-thumb {
 
 .tonic-hypertonic {
   box-shadow: inset 0 0 0 1px rgba(220, 38, 38, 0.14), 0 24px 40px rgba(251, 191, 36, 0.12);
+}
+
+.text-base {
+  font-size: 1rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+.text-3xl {
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+
+.text-gray-900 {
+  color: #0f172a;
+}
+
+.text-gray-600 {
+  color: #475569;
+}
+
+.bg-blue-600 {
+  background: #2563eb;
+}
+
+.hover\:bg-blue-700:hover {
+  background: #1d4ed8;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.transition-colors {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .quiz-option-btn {

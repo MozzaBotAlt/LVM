@@ -167,6 +167,29 @@ button:disabled,
   cursor: not-allowed;
 }
 
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e8f5ff;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+.btn-danger-small {
+  background: rgba(248, 113, 113, 0.12);
+  color: #fee2e2;
+  border: 1px solid rgba(248, 113, 113, 0.24);
+}
+
+.btn-danger-small:hover,
+.btn-danger-small:focus {
+  background: rgba(248, 113, 113, 0.18);
+}
+
 /* Header */
 .site-header {
   position: sticky;
@@ -201,6 +224,12 @@ button:disabled,
   background: rgba(0, 255, 247, 0.18);
   color: #00fff7;
   font-size: 1.4rem;
+}
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 .brand-logo h1 {
   margin: 0;

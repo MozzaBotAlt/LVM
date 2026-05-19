@@ -202,6 +202,12 @@ button:disabled,
   color: #00fff7;
   font-size: 1.4rem;
 }
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
 .brand-logo h1 {
   margin: 0;
   font-size: clamp(1.5rem, 2vw, 2.1rem);

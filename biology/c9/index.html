@@ -8,6 +8,73 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
     <link rel="stylesheet" href="/style.css"/>
+    <style>
+      .hero-card {
+        background: rgba(4, 17, 42, 0.92);
+        border: 1px solid rgba(0, 255, 247, 0.16);
+        border-radius: 28px;
+        padding: 32px;
+        margin-bottom: 24px;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+      }
+      .hero-copy h1 {
+        margin: 0 0 10px;
+        font-size: clamp(2rem, 3vw, 2.6rem);
+        color: #ffffff;
+      }
+      .hero-copy p {
+        margin: 0;
+        color: #cce7ff;
+        max-width: 760px;
+        line-height: 1.7;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 20px;
+      }
+      .box {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 24px;
+      }
+      .feature-grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 30px;
+      }
+      .feature-card {
+        background: rgba(6, 18, 37, 0.95);
+        border: 1px solid rgba(0, 255, 247, 0.14);
+        border-radius: 24px;
+        padding: 24px;
+        color: #d9f7ff;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+      }
+      .feature-card h3 {
+        margin-top: 0;
+        color: #8de0ff;
+      }
+      .feature-card p {
+        color: #c3e8ff;
+        line-height: 1.7;
+      }
+      .feature-icon {
+        font-size: 2rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        background: rgba(0, 255, 247, 0.12);
+        border-radius: 18px;
+        margin-bottom: 16px;
+      }
+    </style>
     <link rel="icon" href="/multimedia/image/images.webp" type="image/x-icon" />
     <title>LVM Menu</title>
   </head>
@@ -27,21 +94,43 @@
     </header>
 
     <div class="container">
-      <div class="box">
-        <i style="margin: 10px 10px 10px" class="fa-solid fa-house"></i>
-        <button
-          style="margin: 10px 10px 10px"
-          class="btn"
-          onclick="window.location.href='/index.html'">Back to Menu</button>
+      <div class="hero-card">
+        <div class="hero-copy">
+          <h1>Chapter 9: Transport in Animals</h1>
+          <p>Discover how blood moves through the body, how pressure is regulated, and how organs work together to transport oxygen and nutrients.</p>
+        </div>
+        <div class="hero-actions">
+          <a href="/index.html" class="btn btn-secondary">← Home</a>
+          <a href="../index.html" class="btn btn-secondary">← Back to Biology</a>
+        </div>
       </div>
+
       <div class="card">
-        <h1> LVM Chapter 9: Transport in Animals</h1>
-        <p>Choose a test to begin. Use the toolbar to record observations and export results.</p>
+        <h1>Choose a module</h1>
+        <p>Start with the blood circulation simulator and learn the key transport concepts with a guided virtual lab.</p>
         <a href="./circulatory/index.html" class="module-card">
-          <div style="color:black; font-weight: bold;" class="title">Blood Circulation</div>
-          <div class="module-badge">Blood regulation in the body</div>
-          <div class="module-desc">Interactive blood regulation simulator</div>
+          <div class="module-title">Blood Circulation</div>
+          <div class="module-badge">Transport and pressure regulation</div>
+          <div class="module-desc">Interactive blood flow simulator for animal transport systems.</div>
         </a>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">💓</div>
+          <h3>Heart Flow</h3>
+          <p>See how the heart pumps blood through chambers and valves with a clear, visual overview.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🩸</div>
+          <h3>Blood Vessels</h3>
+          <p>Compare arteries, veins, and capillaries to understand how blood pressure changes along the system.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <h3>System Control</h3>
+          <p>Learn how the circulatory system responds to exercise, rest, and emergency conditions.</p>
+        </div>
       </div>
     </div>
 

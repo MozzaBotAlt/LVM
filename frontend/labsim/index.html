@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
+    <style>
+      .hero-actions {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-bottom: 24px;
+      }
+      .hero-actions .btn {
+        align-items: center;
+        display: inline-flex;
+        gap: 10px;
+      }
+      .modules-grid {
+        margin-top: 24px;
+      }
+      .module-card {
+        min-height: 180px;
+      }
+      .scroll-panel {
+        margin-top: 32px;
+      }
+      .scroll-card button {
+        width: fit-content;
+      }
+    </style>
     <link rel="icon" href="/multimedia/image/images.webp" type="image/x-icon">
     <title>LabSim - Laboratory Simulator</title>
 </head>
@@ -31,9 +57,10 @@
     </header>
 
   <div class="container">
-    <i class="fa-solid fa-house"></i>
-    <button style="margin: 10px 10px;" class="btn" onclick="goToHome();">Home</button>
-      <div class="card">
+    <div class="hero-actions">
+      <a href="/index.html" class="btn btn-secondary"><i class="fa-solid fa-house"></i> Back to Home</a>
+    </div>
+    <div class="card">
           <h1 class="header">Labsim Subject Menu</h1>
           <p>Choose a subject to begin.</p>
 
