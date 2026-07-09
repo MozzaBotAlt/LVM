@@ -1,21 +1,21 @@
-LABSIM VON MOZZABOT - BIOLOGY IGCSE LAB SIMULATOR
+BEYOND THE BEAKER - BIOLOGY IGCSE LAB SIMULATOR
 
 Legend:
 +   - Added feature
 *   - Improved/changed feature
 -   - Bug fixed
 !   - Known issue / missing feature
-LVM - Labsim Von MozzaBot
+BTB - Beyond the Beaker
 
-LVM-0.1.0
+BTB-0.1.0
 + Foundation Prototype
 
-Skip to LVM 4.0.0-alpha
+Skip to BTB 4.0.0-alpha
 
-LVM-4.0.0-alpha
+BTB-4.0.0-alpha
 + Stable foundation of the website.
 ! Missing database features to get blobs.
-* Improved UI, better appearance than LVM-0.1.0.
+* Improved UI, better appearance than BTB-0.1.0.
 - Imporved background security.
 
 Hmm, banyaklah perubahan dia, let the history talks!
