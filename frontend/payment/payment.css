@@ -1,0 +1,304 @@
+/* Payment page styles — extends the site theme (dark navy + cyan). */
+
+.pricing-hero {
+  text-align: center;
+  max-width: 760px;
+  margin: 8px auto 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.pricing-eyebrow {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(0, 255, 247, 0.12);
+  border: 1px solid rgba(0, 255, 247, 0.24);
+  color: #bffcff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.pricing-title {
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  color: #9dfcff;
+  margin: 0;
+}
+.pricing-sub {
+  color: #c9e9ff;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  margin: 0;
+}
+.quota-pill {
+  margin: 6px 0 0;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(128, 216, 255, 0.18);
+  color: #d8f4ff;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.quota-pill.is-blocked {
+  background: rgba(248, 113, 113, 0.12);
+  border-color: rgba(248, 113, 113, 0.3);
+  color: #fee2e2;
+}
+.quota-pill.is-paid {
+  background: rgba(74, 222, 128, 0.12);
+  border-color: rgba(74, 222, 128, 0.3);
+  color: #dcfce7;
+}
+
+/* Plans */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 32px;
+  align-items: stretch;
+}
+.plans-loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #9feeee;
+}
+.plan-card {
+  background: rgba(8, 20, 50, 0.82);
+  border: 1px solid rgba(0, 255, 247, 0.14);
+  border-radius: 24px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.plan-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 70px rgba(0, 95, 193, 0.22);
+  border-color: rgba(0, 255, 247, 0.3);
+}
+.plan-card.is-highlight {
+  border-color: rgba(0, 255, 247, 0.5);
+  box-shadow: 0 20px 60px rgba(0, 255, 247, 0.14);
+}
+.plan-badge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: linear-gradient(135deg, rgba(19, 102, 255, 0.96), rgba(41, 193, 255, 0.95));
+  color: #041724;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+.plan-name {
+  font-size: 1.25rem;
+  color: #e8f5ff;
+  margin: 0;
+}
+.plan-desc {
+  color: #c9e9ff;
+  font-size: 0.94rem;
+  margin: 0;
+  min-height: 42px;
+}
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 4px 0;
+}
+.plan-price .amount {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #9dfcff;
+}
+.plan-price .interval {
+  color: #9feeee;
+  font-size: 0.95rem;
+}
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0;
+  display: grid;
+  gap: 10px;
+}
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #d4eef4;
+  font-size: 0.93rem;
+  line-height: 1.5;
+}
+.plan-features li i {
+  color: #4ade80;
+  margin-top: 3px;
+  font-size: 0.9rem;
+}
+.plan-cta {
+  margin-top: auto;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Trust row */
+.trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin: 34px auto 8px;
+  color: #aecde1;
+  font-size: 0.95rem;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.trust-item i {
+  color: #80d8ff;
+}
+
+/* Checkout dialog */
+.checkout-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(3, 10, 24, 0.72);
+  backdrop-filter: blur(8px);
+}
+.checkout-overlay[hidden] {
+  display: none;
+}
+.checkout-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: rgba(8, 20, 50, 0.96);
+  border: 1px solid rgba(0, 255, 247, 0.18);
+  border-radius: 24px;
+  padding: 30px 28px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5);
+}
+.checkout-card h3 {
+  color: #9dfcff;
+  margin: 0 0 4px;
+  font-size: 1.3rem;
+}
+.checkout-plan {
+  color: #c9e9ff;
+  margin: 0 0 18px;
+  font-size: 0.95rem;
+}
+.checkout-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e8f5ff;
+  box-shadow: none;
+}
+.field {
+  display: block;
+  margin-bottom: 16px;
+}
+.field span {
+  display: block;
+  margin-bottom: 6px;
+  color: #d8f4ff;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.field span small {
+  color: #9feeee;
+  font-weight: 500;
+}
+.field input,
+.field select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(128, 216, 255, 0.2);
+  color: #e8f5ff;
+  font-size: 1rem;
+  font-family: inherit;
+}
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: rgba(0, 255, 247, 0.55);
+  box-shadow: 0 0 0 3px rgba(0, 255, 247, 0.14);
+}
+.field select option {
+  background: #0b1c3f;
+  color: #e8f5ff;
+}
+.checkout-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  margin: 4px 0 16px;
+  border-radius: 14px;
+  background: rgba(0, 255, 247, 0.08);
+  border: 1px solid rgba(0, 255, 247, 0.16);
+}
+.checkout-summary span {
+  color: #d8f4ff;
+}
+.checkout-summary strong {
+  color: #9dfcff;
+  font-size: 1.35rem;
+}
+.checkout-submit {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.checkout-submit[disabled] {
+  opacity: 0.6;
+}
+.checkout-error {
+  color: #fecaca;
+  background: rgba(248, 113, 113, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.28);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  margin: 0 0 14px;
+}
+.checkout-fineprint {
+  color: #9feeee;
+  font-size: 0.82rem;
+  text-align: center;
+  margin: 14px 0 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .plans-grid {
+    grid-template-columns: 1fr;
+  }
+}

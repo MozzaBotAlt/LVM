@@ -1,0 +1,14 @@
+{
+  "name": "btb-payment-backend",
+  "version": "1.0.0",
+  "description": "Payment + paywall backend for Beyond the Beaker (Neon Postgres).",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "init-db": "psql \"$DATABASE_URL\" -f schema.sql"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "express": "^4.21.2"
+  }
+}

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="description"
+      content="Upgrade Beyond the Beaker. Choose a package and pay securely with Malaysian online banking (FPX) or card."
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="./payment.css" />
+    <title>Pricing & Payment | Beyond the Beaker</title>
+    <link rel="icon" href="../multimedia/image/images.webp" type="image/x-icon" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="header-brand">
+          <a href="../index.html" class="brand-logo">
+            <span class="brand-mark"
+              ><img src="../multimedia/image/images.webp" alt="Beyond the Beaker logo"
+            /></span>
+            <div>
+              <h1>Beyond the Beaker</h1>
+              <p class="tagline">IGCSE and KSSM lab simulator for teachers and students</p>
+            </div>
+          </a>
+        </div>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a class="nav-link" href="../About/index.html">About</a>
+          <a class="nav-link" href="../labsim/index.html">Labsim</a>
+          <a class="nav-link" href="../help/index.html">Help</a>
+          <a class="nav-link" href="../contact/index.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container" role="main">
+      <section class="pricing-hero">
+        <span class="pricing-eyebrow">Pricing</span>
+        <h2 class="pricing-title text-balance">Unlock every simulator</h2>
+        <p class="pricing-sub text-pretty">
+          Try any lab free for your first
+          <strong id="freeLimitText">3</strong> runs. When you are ready, pick a
+          package and pay securely with Malaysian online banking (FPX) or card.
+        </p>
+        <p class="quota-pill" id="quotaPill" aria-live="polite">Checking your free runs…</p>
+      </section>
+
+      <section class="plans-grid" id="plansGrid" aria-label="Available packages">
+        <!-- Plan cards injected by script.js -->
+        <p class="plans-loading" id="plansLoading">Loading packages…</p>
+      </section>
+
+      <section class="trust-row" aria-label="Payment methods">
+        <div class="trust-item"><i class="fa-solid fa-building-columns" aria-hidden="true"></i> FPX online banking</div>
+        <div class="trust-item"><i class="fa-regular fa-credit-card" aria-hidden="true"></i> Debit / credit card</div>
+        <div class="trust-item"><i class="fa-solid fa-lock" aria-hidden="true"></i> Secure checkout</div>
+      </section>
+    </main>
+
+    <!-- Checkout dialog -->
+    <div class="checkout-overlay" id="checkoutOverlay" hidden>
+      <div
+        class="checkout-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="checkoutTitle"
+      >
+        <button class="checkout-close" id="checkoutClose" aria-label="Close checkout">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <h3 id="checkoutTitle">Complete your purchase</h3>
+        <p class="checkout-plan" id="checkoutPlanLine">—</p>
+
+        <form id="checkoutForm" novalidate>
+          <label class="field">
+            <span>Full name</span>
+            <input type="text" id="fullName" name="fullName" autocomplete="name" required />
+          </label>
+          <label class="field">
+            <span>Email <small>(your account &amp; receipt)</small></span>
+            <input type="email" id="email" name="email" autocomplete="email" required />
+          </label>
+          <label class="field">
+            <span>Pay from bank (FPX)</span>
+            <select id="bank" name="bank">
+              <option value="">Choose at the bank page</option>
+              <option value="maybank2u">Maybank2U</option>
+              <option value="cimbclicks">CIMB Clicks</option>
+              <option value="publicbank">Public Bank</option>
+              <option value="rhb">RHB Bank</option>
+              <option value="hongleong">Hong Leong Bank</option>
+              <option value="ambank">AmBank</option>
+              <option value="bankislam">Bank Islam</option>
+              <option value="bankrakyat">Bank Rakyat</option>
+              <option value="bsn">BSN</option>
+              <option value="uob">UOB</option>
+              <option value="ocbc">OCBC</option>
+              <option value="hsbc">HSBC</option>
+              <option value="affin">Affin Bank</option>
+              <option value="card">Debit / Credit card</option>
+            </select>
+          </label>
+
+          <div class="checkout-summary">
+            <span>Total due</span>
+            <strong id="checkoutTotal">—</strong>
+          </div>
+
+          <p class="checkout-error" id="checkoutError" role="alert" hidden></p>
+
+          <button type="submit" class="btn checkout-submit" id="checkoutSubmit">
+            <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+            Pay securely
+          </button>
+          <p class="checkout-fineprint">
+            You will be redirected to your bank to authorise the payment. We never
+            see your banking password.
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h3>About Labsim</h3>
+          <p>
+            Interactive simulations designed for KSSM and IGCSE learners. Built to
+            help students master science concepts with visual experiments.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick links</h3>
+          <ul>
+            <li><a href="../About/index.html">About</a></li>
+            <li><a href="../labsim/index.html">Labsim</a></li>
+            <li><a href="../help/index.html">Help</a></li>
+            <li><a href="../contact/index.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Project</h3>
+          <p>
+            GNU GPL v3.0 licensed. Previous versions on
+            <a href="http://github.com/MozzaBotAlt/BTB">GitHub</a>.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Beyond the Beaker. Developed by Long Infinity.</p>
+      </div>
+    </footer>
+
+    <script src="./plans.js"></script>
+    <script src="../paywall.js"></script>
+    <script src="./script.js" defer></script>
+  </body>
+</html>

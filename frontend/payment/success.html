@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="./payment.css" />
+    <title>Payment Status | Beyond the Beaker</title>
+    <link rel="icon" href="../multimedia/image/images.webp" type="image/x-icon" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="header-brand">
+          <a href="../index.html" class="brand-logo">
+            <span class="brand-mark"
+              ><img src="../multimedia/image/images.webp" alt="Beyond the Beaker logo"
+            /></span>
+            <div>
+              <h1>Beyond the Beaker</h1>
+              <p class="tagline">IGCSE and KSSM lab simulator for teachers and students</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container" role="main">
+      <section class="contact-card" style="max-width: 620px; text-align: center;">
+        <div
+          class="contact-icon"
+          id="statusIcon"
+          style="margin: 0 auto 18px; width: 68px; height: 68px; font-size: 1.9rem;"
+        >
+          <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+        </div>
+        <h2 id="statusTitle" class="text-balance">Confirming your payment…</h2>
+        <p id="statusMsg" class="text-pretty">
+          Please wait while we check your payment status.
+        </p>
+        <div class="contact-actions" style="margin-top: 26px;">
+          <a class="btn" href="../labsim/index.html">Go to Labsim</a>
+          <a class="btn btn-secondary" href="./index.html">Back to pricing</a>
+        </div>
+      </section>
+    </main>
+
+    <script src="../paywall.js"></script>
+    <script>
+      (function () {
+        var API_BASE = (window.BTB_API_BASE || "https://lvm-backend-j0ws.onrender.com/").replace(/\/?$/, "/");
+        var params = new URLSearchParams(location.search);
+        // ToyyibPay returns: status_id, billcode, order_id, transaction_id
+        var paymentId = params.get("order_id") || (params.get("ref") || "").replace("manual-", "");
+        var statusId = params.get("status_id"); // 1 success, 2 pending, 3 fail
+
+        var icon = document.getElementById("statusIcon");
+        var title = document.getElementById("statusTitle");
+        var msg = document.getElementById("statusMsg");
+
+        function render(state) {
+          if (state === "paid") {
+            icon.innerHTML = '<i class="fa-solid fa-circle-check" aria-hidden="true"></i>';
+            icon.style.color = "#4ade80";
+            title.textContent = "Payment successful!";
+            msg.textContent =
+              "Your account is now active. You have unlimited access to every simulator. A receipt has been emailed to you.";
+          } else if (state === "failed") {
+            icon.innerHTML = '<i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>';
+            icon.style.color = "#f87171";
+            title.textContent = "Payment not completed";
+            msg.textContent =
+              "We could not confirm your payment. No charge was made — you can try again from the pricing page.";
+          } else {
+            icon.innerHTML = '<i class="fa-solid fa-clock" aria-hidden="true"></i>';
+            icon.style.color = "#80d8ff";
+            title.textContent = "Payment pending";
+            msg.textContent =
+              "Your payment is being processed. Your account will activate automatically once the bank confirms it.";
+          }
+        }
+
+        // Prefer the gateway's own status flag if present.
+        if (statusId === "1") return render("paid");
+        if (statusId === "3") return render("failed");
+
+        if (!paymentId) return render("pending");
+
+        // Otherwise poll the backend for the authoritative status.
+        var tries = 0;
+        (function poll() {
+          fetch(API_BASE + "api/payments/" + encodeURIComponent(paymentId) + "/status")
+            .then(function (r) {
+              return r.ok ? r.json() : null;
+            })
+            .then(function (p) {
+              if (p && p.status === "paid") return render("paid");
+              if (p && p.status === "failed") return render("failed");
+              if (tries++ < 5) return setTimeout(poll, 2000);
+              render("pending");
+            })
+            .catch(function () {
+              render("pending");
+            });
+        })();
+      })();
+    </script>
+  </body>
+</html>
